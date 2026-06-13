@@ -1,0 +1,65 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "brave": "https://raw.githubusercontent.com/api-evangelist/brave/main/json-ld/brave-ads-context.jsonld#",
+
+    "Campaign": "brave:AdsCampaign",
+    "AdSet": "brave:AdSet",
+    "Ad": "brave:Ad",
+    "Budget": "brave:Budget",
+    "Targeting": "brave:Targeting",
+    "CampaignsResponse": "brave:CampaignsResponse",
+
+    "campaign_id": "identifier",
+    "campaign_name": "name",
+    "ad_sets": "brave:adSets",
+    "targeting": "brave:targeting",
+    "countries": "brave:targetCountries",
+    "platforms": "brave:targetPlatforms",
+    "channels": "brave:targetChannels",
+    "start_date": "startDate",
+    "end_date": "endDate",
+    "status": "brave:status",
+    "budget": "priceSpecification",
+    "daily": "brave:dailyBudget",
+    "total": "brave:totalBudget",
+    "currency": "priceCurrency",
+
+    "headline": "headline",
+    "body": "articleBody",
+    "destination_url": "url",
+    "creative_url": "contentUrl",
+
+    "impressions": "brave:impressions",
+    "clicks": "brave:clicks",
+    "spend": "brave:spend",
+    "ctr": "brave:clickThroughRate",
+    "cpc": "brave:costPerClick",
+    "conversions": "brave:conversions",
+    "conversion_value": "brave:conversionValue",
+
+    "granularity": "brave:reportGranularity",
+    "dimensions": "brave:reportDimensions",
+    "metrics": "brave:reportMetrics",
+
+    "schema": "https://schema.org/"
+  },
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Brave Ads API",
+      "description": "Privacy-preserving advertising management and reporting API for Brave native browser ads and search ads.",
+      "url": "https://ads-serve.brave.com",
+      "provider": {
+        "@type": "Organization",
+        "name": "Brave Software",
+        "url": "https://brave.com",
+        "email": "adsales@brave.com",
+        "sameAs": [
+          "https://github.com/brave",
+          "https://www.linkedin.com/company/brave-software"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "type": "search",
+  "query": {
+    "original": "brave search api",
+    "more_results_available": true
+  },
+  "web": {
+    "results": [
+      {
+        "title": "Brave Search API – Real-Time Web Search for AI",
+        "url": "https://brave.com/search/api/",
+        "description": "Power your agents and chatbots with the world's largest independent index of the Web. Get real-time search results with schema-enriched data optimized for AI and LLM applications.",
+        "extra_snippets": [
+          "Access over 30 billion indexed pages with 100 million daily updates.",
+          "Supports web, image, video, news, suggestions, and spellcheck endpoints.",
+          "Custom reranking via Goggles and citation-grounded Answers completions."
+        ]
+      },
+      {
+        "title": "Get Started – Brave Search API Documentation",
+        "url": "https://api-dashboard.search.brave.com/app/documentation/web-search/get-started",
+        "description": "Complete documentation for integrating the Brave Search API into your application. Covers authentication, endpoints, parameters, and response schemas.",
+        "extra_snippets": []
+      }
+    ]
+  },
+  "locations": {
+    "results": []
+  },
+  "rich": null
+}

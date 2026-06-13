@@ -1,0 +1,100 @@
+name: Brave Search API Vocabulary
+description: >
+  Domain vocabulary for the Brave Search API covering search, local, and rich
+  result concepts.
+version: 1.0.0
+source: https://api-dashboard.search.brave.com/app/documentation/web-search/get-started
+
+terms:
+
+  - term: goggles
+    definition: >
+      Custom re-ranking rules applied to Brave Search results. Goggles allow
+      developers and users to define filters and boosts that modify result
+      ordering based on source credibility, domain preferences, or topic
+      relevance.
+    context: search customization
+
+  - term: freshness
+    definition: >
+      A time-based filter parameter controlling the recency of search results.
+      Values include pd (past 24 hours), pw (past week), pm (past month),
+      py (past year), or a custom date range in YYYY-MM-DDtoYYYY-MM-DD format.
+    context: query parameter
+
+  - term: extra_snippets
+    definition: >
+      An optional search parameter that, when enabled, returns up to 5
+      additional text excerpts per result beyond the primary description
+      snippet. Useful for content-rich applications requiring more context
+      per result.
+    context: query parameter
+
+  - term: location_id
+    definition: >
+      A short-lived identifier for a local place of interest returned in web
+      search results. Used to retrieve detailed POI data or AI-generated
+      descriptions via the /local/pois and /local/descriptions endpoints.
+      Expires approximately 8 hours after the originating search.
+    context: local search
+
+  - term: callback_key
+    definition: >
+      A key returned in the rich hint object of a web search response.
+      Passed to the /web/rich endpoint to retrieve full rich data for a
+      specific vertical such as weather, stocks, or sports scores.
+    context: rich results
+
+  - term: safesearch
+    definition: >
+      A content filtering parameter controlling the level of adult content
+      filtering applied to search results. Options are off (no filtering),
+      moderate (default, filters explicit content), and strict (maximum
+      filtering).
+    context: content moderation
+
+  - term: rich_result
+    definition: >
+      Enhanced structured data returned alongside standard search results
+      for specific query verticals. Rich results cover 20+ verticals including
+      weather, stock prices, currency conversion, cryptocurrency, sports scores,
+      calculator, unit conversion, package tracking, and more.
+    context: search results
+
+  - term: vertical
+    definition: >
+      A content category for which Brave Search provides structured rich
+      result data. Examples include weather, stock, currency, cryptocurrency,
+      calculator, definitions, unit_conversion, unix_timestamp, package_tracker,
+      american_football, baseball, basketball, cricket, football, ice_hockey,
+      and formula_1.
+    context: rich results
+
+  - term: X-Subscription-Token
+    definition: >
+      The HTTP request header used to pass the API authentication key for the
+      Brave Search API. Keys are obtained from the Brave Search API dashboard
+      at https://api-dashboard.search.brave.com.
+    context: authentication
+
+  - term: independent_index
+    definition: >
+      Brave's proprietary web index built without reliance on major search
+      engine data providers. Contains over 30 billion pages with approximately
+      100 million daily updates. Designed to provide privacy-preserving search
+      results free from behavioral tracking.
+    context: infrastructure
+
+  - term: offset
+    definition: >
+      A pagination parameter specifying the starting position (0-based) for
+      search results. Maximum value is 9, allowing access to up to 10 pages
+      of results when combined with the count parameter.
+    context: pagination
+
+  - term: spellcheck
+    definition: >
+      A search feature or standalone endpoint that detects and suggests
+      corrections for misspelled query terms. An empty results array from
+      the /spellcheck/search endpoint indicates no corrections are needed.
+    context: query processing

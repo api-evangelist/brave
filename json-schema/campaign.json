@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/brave/main/json-schema/campaign.json",
+  "title": "Campaign",
+  "description": "A Brave Ads campaign object with associated ad sets and ads.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the campaign."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the campaign."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the campaign.",
+      "enum": ["active", "paused", "completed", "draft"]
+    },
+    "budget": {
+      "$ref": "#/$defs/Budget"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Campaign start date in YYYY-MM-DD format."
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Campaign end date in YYYY-MM-DD format."
+    },
+    "ad_sets": {
+      "type": "array",
+      "description": "Ad sets belonging to this campaign.",
+      "items": {
+        "$ref": "#/$defs/AdSet"
+      }
+    }
+  },
+  "required": ["id", "name", "status"],
+  "$defs": {
+    "Budget": {
+      "type": "object",
+      "description": "Campaign budget configuration.",
+      "properties": {
+        "daily": {
+          "type": "number",
+          "description": "Daily budget cap."
+        },
+        "total": {
+          "type": "number",
+          "description": "Total campaign budget."
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 currency code.",
+          "example": "USD"
+        }
+      }
+    },
+    "AdSet": {
+      "type": "object",
+      "description": "An ad set grouping ads with shared targeting.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ad set."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the ad set."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "paused", "draft"]
+        },
+        "targeting": {
+          "$ref": "#/$defs/Targeting"
+        },
+        "ads": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ad"
+          }
+        }
+      },
+      "required": ["id", "name"]
+    },
+    "Targeting": {
+      "type": "object",
+      "description": "Audience and placement targeting settings.",
+      "properties": {
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "description": "ISO 3166-1 alpha-2 country codes to target."
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["desktop", "mobile", "tablet"]
+          },
+          "description": "Device platform targets."
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["search", "native"]
+          },
+          "description": "Ad delivery channel types."
+        }
+      }
+    },
+    "Ad": {
+      "type": "object",
+      "description": "An individual ad creative.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ad."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the ad."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "paused", "draft", "rejected"]
+        },
+        "creative_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the ad creative asset."
+        },
+        "headline": {
+          "type": "string",
+          "description": "Ad headline text."
+        },
+        "body": {
+          "type": "string",
+          "description": "Ad body copy."
+        },
+        "destination_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Click destination URL."
+        }
+      },
+      "required": ["id", "name"]
+    }
+  }
+}

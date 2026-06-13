@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/brave/main/json-schema/suggest-response.json",
+  "title": "SuggestResponse",
+  "description": "Response object returned by the Brave Search API autosuggest endpoint.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "suggest",
+      "description": "Response type identifier."
+    },
+    "query": {
+      "type": "object",
+      "properties": {
+        "original": {
+          "type": "string",
+          "description": "The original partial query string."
+        }
+      },
+      "required": ["original"]
+    },
+    "results": {
+      "type": "array",
+      "description": "Array of query suggestion objects.",
+      "items": {
+        "$ref": "#/$defs/SuggestionResult"
+      }
+    }
+  },
+  "$defs": {
+    "SuggestionResult": {
+      "type": "object",
+      "description": "A single autosuggest result.",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Suggested complete query string."
+        },
+        "is_entity": {
+          "type": "boolean",
+          "description": "True if this suggestion refers to a known entity (rich mode only)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Display title for entity suggestions (rich mode only)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description of the entity (rich mode only)."
+        },
+        "img": {
+          "type": "string",
+          "format": "uri",
+          "description": "Image URL for the entity (rich mode only)."
+        }
+      },
+      "required": ["query"]
+    }
+  }
+}

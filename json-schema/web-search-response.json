@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/brave/main/json-schema/web-search-response.json",
+  "title": "WebSearchResponse",
+  "description": "Response object returned by the Brave Search API web search endpoint.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "search",
+      "description": "Response type identifier."
+    },
+    "query": {
+      "$ref": "#/$defs/QueryInfo"
+    },
+    "web": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "description": "Array of web search result objects.",
+          "items": {
+            "$ref": "#/$defs/WebResult"
+          }
+        }
+      }
+    },
+    "locations": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "array",
+          "description": "Array of local place of interest summaries.",
+          "items": {
+            "$ref": "#/$defs/LocationResult"
+          }
+        }
+      }
+    },
+    "rich": {
+      "$ref": "#/$defs/RichHint"
+    }
+  },
+  "$defs": {
+    "QueryInfo": {
+      "type": "object",
+      "description": "Metadata about the search query.",
+      "properties": {
+        "original": {
+          "type": "string",
+          "description": "The original search query string as submitted."
+        },
+        "more_results_available": {
+          "type": "boolean",
+          "description": "Indicates whether additional result pages exist."
+        }
+      },
+      "required": ["original"]
+    },
+    "WebResult": {
+      "type": "object",
+      "description": "A single web search result.",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title of the web page."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the web page."
+        },
+        "description": {
+          "type": "string",
+          "description": "Text snippet describing the page content."
+        },
+        "extra_snippets": {
+          "type": "array",
+          "description": "Up to 5 additional excerpts (requires extra_snippets=true).",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 5
+        }
+      },
+      "required": ["title", "url"]
+    },
+    "LocationResult": {
+      "type": "object",
+      "description": "A local place of interest summary from web search.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Location ID usable with /local/pois and /local/descriptions endpoints."
+        },
+        "title": {
+          "type": "string",
+          "description": "Name of the location."
+        }
+      },
+      "required": ["id", "title"]
+    },
+    "RichHint": {
+      "type": "object",
+      "description": "Rich result hint included when enable_rich_callback is set.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Rich result type identifier."
+        },
+        "hint": {
+          "type": "object",
+          "properties": {
+            "vertical": {
+              "type": "string",
+              "description": "Vertical category for the rich result.",
+              "enum": [
+                "weather",
+                "stock",
+                "currency",
+                "cryptocurrency",
+                "calculator",
+                "definitions",
+                "unit_conversion",
+                "unix_timestamp",
+                "package_tracker",
+                "american_football",
+                "baseball",
+                "basketball",
+                "cricket",
+                "football",
+                "ice_hockey",
+                "formula_1"
+              ]
+            },
+            "callback_key": {
+              "type": "string",
+              "description": "Key to pass to /web/rich to retrieve full rich data."
+            }
+          }
+        }
+      }
+    }
+  }
+}

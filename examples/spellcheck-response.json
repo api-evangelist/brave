@@ -1,0 +1,11 @@
+{
+  "type": "spellcheck",
+  "query": {
+    "original": "machien leraning"
+  },
+  "results": [
+    {
+      "query": "machine learning"
+    }
+  ]
+}

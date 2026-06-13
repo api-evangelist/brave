@@ -1,0 +1,1053 @@
+openapi: 3.0.3
+info:
+  title: Brave Search API
+  description: >
+    Real-time web search results from Brave's independent index of over 30 billion
+    pages with 100 million daily updates. Provides web, image, video, news,
+    suggestions, and spellcheck endpoints with schema-enriched data optimized for
+    AI and LLM integrations. Includes custom reranking via Goggles and citation-
+    grounded Answers completions compatible with the OpenAI SDK.
+  version: 1.0.0
+  contact:
+    name: Brave Software
+    url: https://brave.com
+  termsOfService: https://brave.com/terms-of-use/
+  license:
+    name: Brave Search API Terms
+    url: https://brave.com/terms-of-use/
+externalDocs:
+  description: Brave Search API Documentation
+  url: https://api-dashboard.search.brave.com/app/documentation/web-search/get-started
+servers:
+  - url: https://api.search.brave.com/res/v1
+    description: Brave Search API
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: web
+    description: Web search endpoints
+  - name: images
+    description: Image search endpoints
+  - name: videos
+    description: Video search endpoints
+  - name: news
+    description: News search endpoints
+  - name: suggest
+    description: Autosuggest endpoints
+  - name: spellcheck
+    description: Spellcheck endpoints
+  - name: local
+    description: Local place of interest endpoints
+
+paths:
+  /web/search:
+    get:
+      operationId: webSearch
+      summary: Web Search
+      description: >
+        Search across billions of indexed web pages with fast, reliable results.
+        Supports search operators, geographic targeting, language filtering, date
+        freshness, safe search controls, and rich data enrichments across 20+ verticals.
+      tags:
+        - web
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: >
+            Search query string. Supports search operators including exact phrase
+            matching (quotes), term exclusion (minus), site-specific search
+            (site:), and file type filtering (filetype:).
+          schema:
+            type: string
+            example: brave search api
+        - name: country
+          in: query
+          required: false
+          description: 2-character country code for geographic targeting (e.g. US, GB, DE).
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 2
+            example: US
+        - name: search_lang
+          in: query
+          required: false
+          description: ISO 639-1 language code for content language preference (e.g. en, es, fr).
+          schema:
+            type: string
+            example: en
+        - name: ui_lang
+          in: query
+          required: false
+          description: Language code for response metadata and UI strings.
+          schema:
+            type: string
+            example: en-US
+        - name: count
+          in: query
+          required: false
+          description: Number of results per page. Maximum is 20.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 20
+            default: 20
+        - name: offset
+          in: query
+          required: false
+          description: Pagination offset (0-based). Maximum is 9.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 9
+            default: 0
+        - name: safesearch
+          in: query
+          required: false
+          description: >
+            Safe search content filtering level. Options: off, moderate (default),
+            or strict.
+          schema:
+            type: string
+            enum: [off, moderate, strict]
+            default: moderate
+        - name: freshness
+          in: query
+          required: false
+          description: >
+            Date-based freshness filter. Use pd (past 24 hours), pw (past week),
+            pm (past month), py (past year), or a custom date range in the format
+            YYYY-MM-DDtoYYYY-MM-DD.
+          schema:
+            type: string
+            example: pw
+        - name: extra_snippets
+          in: query
+          required: false
+          description: When true, returns up to 5 additional text excerpts per result.
+          schema:
+            type: boolean
+            default: false
+        - name: enable_rich_callback
+          in: query
+          required: false
+          description: >
+            Enable rich data enrichments. Set to 1 to enable rich result callbacks
+            for verticals like weather, stocks, sports, and more.
+          schema:
+            type: integer
+            enum: [0, 1]
+            default: 0
+      responses:
+        '200':
+          description: Successful web search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebSearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /images/search:
+    get:
+      operationId: imageSearch
+      summary: Image Search
+      description: Search for images from the Brave independent index.
+      tags:
+        - images
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Image search query string.
+          schema:
+            type: string
+            example: mountain landscape
+        - name: country
+          in: query
+          required: false
+          description: Country code or ALL for worldwide results.
+          schema:
+            type: string
+            example: US
+        - name: search_lang
+          in: query
+          required: false
+          description: Preferred content language (ISO 639-1).
+          schema:
+            type: string
+            example: en
+        - name: count
+          in: query
+          required: false
+          description: Number of image results to return. Default 50, max 200.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 50
+        - name: safesearch
+          in: query
+          required: false
+          description: Content filtering level. Default is strict for images.
+          schema:
+            type: string
+            enum: [off, strict]
+            default: strict
+        - name: spellcheck
+          in: query
+          required: false
+          description: Enable autocorrection of the search query. Default true.
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Successful image search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageSearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /videos/search:
+    get:
+      operationId: videoSearch
+      summary: Video Search
+      description: Search for videos from the Brave independent index.
+      tags:
+        - videos
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Video search query string.
+          schema:
+            type: string
+            example: machine learning tutorial
+        - name: country
+          in: query
+          required: false
+          description: 2-character country code for geographic targeting.
+          schema:
+            type: string
+            example: US
+        - name: search_lang
+          in: query
+          required: false
+          description: ISO 639-1 language code for content language.
+          schema:
+            type: string
+            example: en
+        - name: count
+          in: query
+          required: false
+          description: Number of results per page. Max 50, default 20.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 20
+        - name: offset
+          in: query
+          required: false
+          description: Pagination offset (0-based). Maximum is 9.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 9
+            default: 0
+        - name: safesearch
+          in: query
+          required: false
+          description: Content filtering level.
+          schema:
+            type: string
+            enum: [off, moderate, strict]
+            default: moderate
+        - name: freshness
+          in: query
+          required: false
+          description: Date freshness filter (pd, pw, pm, py, or custom range).
+          schema:
+            type: string
+            example: pw
+        - name: spellcheck
+          in: query
+          required: false
+          description: Enable autocorrection. Default true.
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Successful video search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoSearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /news/search:
+    get:
+      operationId: newsSearch
+      summary: News Search
+      description: Search for news articles from the Brave independent index.
+      tags:
+        - news
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: News search query string.
+          schema:
+            type: string
+            example: artificial intelligence
+        - name: country
+          in: query
+          required: false
+          description: 2-character country code for geographic targeting.
+          schema:
+            type: string
+            example: US
+        - name: search_lang
+          in: query
+          required: false
+          description: ISO 639-1 language code for content language.
+          schema:
+            type: string
+            example: en
+        - name: count
+          in: query
+          required: false
+          description: Number of results per page. Max 50, default 20.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 20
+        - name: offset
+          in: query
+          required: false
+          description: Pagination offset (0-based). Maximum is 9.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 9
+            default: 0
+        - name: safesearch
+          in: query
+          required: false
+          description: Content filtering level.
+          schema:
+            type: string
+            enum: [off, moderate, strict]
+            default: moderate
+        - name: freshness
+          in: query
+          required: false
+          description: Date freshness filter (pd, pw, pm, py, or custom range).
+          schema:
+            type: string
+            example: pd
+        - name: extra_snippets
+          in: query
+          required: false
+          description: When true, returns up to 5 additional text excerpts per article.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Successful news search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsSearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /suggest/search:
+    get:
+      operationId: suggest
+      summary: Autosuggest
+      description: >
+        Retrieve query autocompletion suggestions as users type. Supports
+        enhanced rich mode returning entity metadata including titles,
+        descriptions, and images.
+      tags:
+        - suggest
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Partial query string for which to return suggestions.
+          schema:
+            type: string
+            example: brave se
+        - name: country
+          in: query
+          required: false
+          description: Country code to customize suggestions by locale.
+          schema:
+            type: string
+            example: US
+        - name: count
+          in: query
+          required: false
+          description: Number of suggestions to return.
+          schema:
+            type: integer
+            minimum: 1
+            example: 5
+        - name: rich
+          in: query
+          required: false
+          description: >
+            When true, returns enhanced suggestion metadata including titles,
+            descriptions, and images for entity results.
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Successful autosuggest response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuggestResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /spellcheck/search:
+    get:
+      operationId: spellcheck
+      summary: Spellcheck
+      description: >
+        Analyze a query for spelling errors and return suggested corrections.
+        An empty results array indicates no corrections are needed.
+      tags:
+        - spellcheck
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: The search query to check for spelling errors.
+          schema:
+            type: string
+            example: machien leraning
+        - name: country
+          in: query
+          required: false
+          description: Country code for locale-specific spelling corrections.
+          schema:
+            type: string
+            example: US
+      responses:
+        '200':
+          description: Successful spellcheck response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpellcheckResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /local/pois:
+    get:
+      operationId: localPois
+      summary: Local Places of Interest
+      description: >
+        Retrieve detailed place-of-interest information for location IDs
+        obtained from a web search response. Location IDs expire approximately
+        8 hours after the originating search.
+      tags:
+        - local
+      parameters:
+        - name: ids
+          in: query
+          required: true
+          description: Comma-separated list of location IDs from web search (max 20).
+          schema:
+            type: array
+            items:
+              type: string
+            maxItems: 20
+          explode: false
+          style: form
+        - name: search_lang
+          in: query
+          required: false
+          description: ISO 639-1 language preference for results.
+          schema:
+            type: string
+            example: en
+        - name: ui_lang
+          in: query
+          required: false
+          description: UI language for response metadata.
+          schema:
+            type: string
+            example: en-US
+        - name: units
+          in: query
+          required: false
+          description: Measurement units for distance and related fields.
+          schema:
+            type: string
+            enum: [metric, imperial]
+            default: metric
+      responses:
+        '200':
+          description: Successful local POI response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalPoisResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /local/descriptions:
+    get:
+      operationId: localDescriptions
+      summary: Local Descriptions
+      description: >
+        Fetch AI-generated descriptions for locations identified by IDs from
+        a web search response.
+      tags:
+        - local
+      parameters:
+        - name: ids
+          in: query
+          required: true
+          description: Comma-separated list of location IDs from web search (max 20).
+          schema:
+            type: array
+            items:
+              type: string
+            maxItems: 20
+          explode: false
+          style: form
+      responses:
+        '200':
+          description: Successful local descriptions response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalDescriptionsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /web/rich:
+    get:
+      operationId: webRich
+      summary: Rich Result Data
+      description: >
+        Retrieve rich result data for a specific vertical using a callback key
+        obtained from a web search response. Supports weather, stocks, sports
+        scores, currency, cryptocurrency, and more.
+      tags:
+        - web
+      parameters:
+        - name: callback_key
+          in: query
+          required: true
+          description: >
+            Callback key from the rich field of a web search response.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful rich result response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RichResultResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Subscription-Token
+      description: >
+        API key obtained from the Brave Search API dashboard at
+        https://api-dashboard.search.brave.com
+
+  schemas:
+    WebSearchResponse:
+      type: object
+      description: Response from the web search endpoint.
+      properties:
+        type:
+          type: string
+          example: search
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        web:
+          type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/WebResult'
+        locations:
+          type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/LocationResult'
+        rich:
+          $ref: '#/components/schemas/RichHint'
+
+    WebResult:
+      type: object
+      description: A single web search result.
+      properties:
+        title:
+          type: string
+          description: Title of the web page.
+        url:
+          type: string
+          format: uri
+          description: URL of the web page.
+        description:
+          type: string
+          description: Text snippet describing the web page content.
+        extra_snippets:
+          type: array
+          description: Up to 5 additional text excerpts (when extra_snippets is enabled).
+          items:
+            type: string
+
+    LocationResult:
+      type: object
+      description: A local place of interest from a web search result.
+      properties:
+        id:
+          type: string
+          description: Location identifier for use with local POI and description endpoints.
+        title:
+          type: string
+          description: Name of the location.
+
+    RichHint:
+      type: object
+      description: Rich result hint object returned with web search responses.
+      properties:
+        type:
+          type: string
+          description: Type identifier for the rich result.
+        hint:
+          type: object
+          properties:
+            vertical:
+              type: string
+              description: >
+                Vertical category such as weather, stock, currency, sports,
+                calculator, definitions, or package_tracker.
+              example: weather
+            callback_key:
+              type: string
+              description: Key to use with the /web/rich endpoint to fetch full rich data.
+
+    QueryInfo:
+      type: object
+      description: Information about the search query.
+      properties:
+        original:
+          type: string
+          description: The original search query as submitted.
+        more_results_available:
+          type: boolean
+          description: Indicates whether additional result pages are available.
+
+    ImageSearchResponse:
+      type: object
+      description: Response from the image search endpoint.
+      properties:
+        type:
+          type: string
+          example: images
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImageResult'
+
+    ImageResult:
+      type: object
+      description: A single image search result.
+      properties:
+        title:
+          type: string
+          description: Title or caption of the image.
+        url:
+          type: string
+          format: uri
+          description: URL of the source page containing the image.
+        description:
+          type: string
+          description: Description of the image content.
+        properties:
+          type: object
+          description: Image file properties.
+          properties:
+            url:
+              type: string
+              format: uri
+              description: Direct URL to the original image.
+            placeholder:
+              type: string
+              description: URL to a small proxy-served placeholder image.
+            width:
+              type: integer
+              description: Width of the image in pixels.
+            height:
+              type: integer
+              description: Height of the image in pixels.
+
+    VideoSearchResponse:
+      type: object
+      description: Response from the video search endpoint.
+      properties:
+        type:
+          type: string
+          example: videos
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoResult'
+
+    VideoResult:
+      type: object
+      description: A single video search result.
+      properties:
+        title:
+          type: string
+          description: Title of the video.
+        url:
+          type: string
+          format: uri
+          description: URL to the video page.
+        description:
+          type: string
+          description: Description of the video content.
+        thumbnail:
+          type: object
+          properties:
+            url:
+              type: string
+              format: uri
+              description: URL to video thumbnail image.
+        duration:
+          type: string
+          description: Duration of the video.
+        publisher:
+          type: string
+          description: Publisher or channel name.
+
+    NewsSearchResponse:
+      type: object
+      description: Response from the news search endpoint.
+      properties:
+        type:
+          type: string
+          example: news
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsResult'
+
+    NewsResult:
+      type: object
+      description: A single news search result.
+      properties:
+        title:
+          type: string
+          description: Headline of the news article.
+        url:
+          type: string
+          format: uri
+          description: URL to the news article.
+        description:
+          type: string
+          description: Summary snippet of the article.
+        extra_snippets:
+          type: array
+          description: Up to 5 additional excerpts (when extra_snippets is enabled).
+          items:
+            type: string
+        age:
+          type: string
+          description: Relative publication age (e.g. 2 hours ago).
+        source:
+          type: string
+          description: Name of the news publisher.
+
+    SuggestResponse:
+      type: object
+      description: Response from the autosuggest endpoint.
+      properties:
+        type:
+          type: string
+          example: suggest
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SuggestionResult'
+
+    SuggestionResult:
+      type: object
+      description: A single search suggestion.
+      properties:
+        query:
+          type: string
+          description: Suggested query string.
+        is_entity:
+          type: boolean
+          description: True when the suggestion refers to a known entity (rich mode only).
+        title:
+          type: string
+          description: Display title for entity suggestions (rich mode only).
+        description:
+          type: string
+          description: Short description of the entity (rich mode only).
+        img:
+          type: string
+          format: uri
+          description: Image URL for the entity (rich mode only).
+
+    SpellcheckResponse:
+      type: object
+      description: Response from the spellcheck endpoint.
+      properties:
+        type:
+          type: string
+          example: spellcheck
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        results:
+          type: array
+          description: >
+            Array of spelling correction suggestions. Empty array means no
+            corrections needed.
+          items:
+            type: object
+            properties:
+              query:
+                type: string
+                description: Corrected query string.
+
+    LocalPoisResponse:
+      type: object
+      description: Response from the local POIs endpoint.
+      properties:
+        type:
+          type: string
+          example: local_pois
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PoiDetail'
+
+    PoiDetail:
+      type: object
+      description: Detailed information about a place of interest.
+      properties:
+        id:
+          type: string
+          description: Location identifier.
+        name:
+          type: string
+          description: Name of the location.
+        address:
+          type: object
+          properties:
+            street_address:
+              type: string
+            locality:
+              type: string
+            region:
+              type: string
+            country_code:
+              type: string
+        coordinates:
+          type: object
+          properties:
+            latitude:
+              type: number
+              format: double
+            longitude:
+              type: number
+              format: double
+        phone:
+          type: string
+          description: Contact phone number.
+        website:
+          type: string
+          format: uri
+          description: Website URL of the location.
+        rating:
+          type: object
+          properties:
+            value:
+              type: number
+              description: Average rating value.
+            count:
+              type: integer
+              description: Number of ratings.
+        categories:
+          type: array
+          items:
+            type: string
+          description: Business category labels.
+
+    LocalDescriptionsResponse:
+      type: object
+      description: Response from the local descriptions endpoint.
+      properties:
+        type:
+          type: string
+          example: local_descriptions
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Location identifier.
+              description:
+                type: string
+                description: AI-generated description of the location.
+
+    RichResultResponse:
+      type: object
+      description: >
+        Rich result data for a specific vertical. The structure varies by
+        vertical type.
+      properties:
+        type:
+          type: string
+          description: Rich result type identifier.
+          example: rich
+        vertical:
+          type: string
+          description: >
+            Vertical category such as weather, stock, currency, sports,
+            calculator, definitions, or package_tracker.
+        data:
+          type: object
+          description: >
+            Vertical-specific data. Schema varies by vertical type.
+          additionalProperties: true
+
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code.
+            message:
+              type: string
+              description: Human-readable error message.
+
+  responses:
+    BadRequest:
+      description: Bad request — missing or invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized — missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden — API key does not have access to this endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests — rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

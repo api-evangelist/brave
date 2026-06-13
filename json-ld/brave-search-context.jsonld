@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "brave": "https://raw.githubusercontent.com/api-evangelist/brave/main/json-ld/brave-search-context.jsonld#",
+
+    "WebSearchResponse": "brave:WebSearchResponse",
+    "ImageSearchResponse": "brave:ImageSearchResponse",
+    "VideoSearchResponse": "brave:VideoSearchResponse",
+    "NewsSearchResponse": "brave:NewsSearchResponse",
+    "SuggestResponse": "brave:SuggestResponse",
+    "SpellcheckResponse": "brave:SpellcheckResponse",
+    "LocalPoisResponse": "brave:LocalPoisResponse",
+    "LocalDescriptionsResponse": "brave:LocalDescriptionsResponse",
+
+    "WebResult": "brave:WebResult",
+    "ImageResult": "brave:ImageResult",
+    "VideoResult": "brave:VideoResult",
+    "NewsResult": "brave:NewsResult",
+    "SuggestionResult": "brave:SuggestionResult",
+    "LocationResult": "brave:LocationResult",
+    "PoiDetail": "brave:PoiDetail",
+    "RichHint": "brave:RichHint",
+    "QueryInfo": "brave:QueryInfo",
+
+    "query": "brave:query",
+    "results": "brave:results",
+    "original": "brave:original",
+    "more_results_available": "brave:moreResultsAvailable",
+    "extra_snippets": "brave:extraSnippets",
+    "callback_key": "brave:callbackKey",
+    "enable_rich_callback": "brave:enableRichCallback",
+    "location_id": "brave:locationId",
+    "is_entity": "brave:isEntity",
+    "safesearch": "brave:safesearch",
+    "freshness": "brave:freshness",
+    "vertical": "brave:vertical",
+    "rich": "brave:rich",
+
+    "title": "name",
+    "url": "url",
+    "description": "description",
+    "thumbnail": "thumbnailUrl",
+    "publisher": "publisher",
+    "duration": "duration",
+    "source": "sourceOrganization",
+    "age": "datePublished",
+
+    "latitude": "geo:lat",
+    "longitude": "geo:long",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "address": "address",
+    "phone": "telephone",
+    "website": "url",
+    "rating": "aggregateRating",
+    "categories": "category",
+    "coordinates": "geo",
+
+    "img": "image",
+    "placeholder": "brave:placeholder",
+    "width": "width",
+    "height": "height",
+    "properties": "additionalProperty",
+
+    "schema": "https://schema.org/"
+  },
+  "@graph": [
+    {
+      "@type": "DataCatalog",
+      "name": "Brave Search API",
+      "description": "Real-time web search from Brave's independent index of over 30 billion pages.",
+      "url": "https://api.search.brave.com/res/v1",
+      "provider": {
+        "@type": "Organization",
+        "name": "Brave Software",
+        "url": "https://brave.com",
+        "sameAs": [
+          "https://github.com/brave",
+          "https://www.linkedin.com/company/brave-software",
+          "https://x.com/brave"
+        ]
+      }
+    }
+  ]
+}

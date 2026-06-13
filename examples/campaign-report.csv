@@ -1,0 +1,6 @@
+date,campaign_id,campaign_name,impressions,clicks,spend,ctr,cpc
+2026-01-01,camp_abc123,Q4 Brand Awareness,10523,312,15.60,2.96%,0.05
+2026-01-02,camp_abc123,Q4 Brand Awareness,11045,298,14.90,2.70%,0.05
+2026-01-03,camp_abc123,Q4 Brand Awareness,9876,287,14.35,2.91%,0.05
+2026-01-04,camp_abc123,Q4 Brand Awareness,12341,389,19.45,3.15%,0.05
+2026-01-05,camp_abc123,Q4 Brand Awareness,13002,411,20.55,3.16%,0.05

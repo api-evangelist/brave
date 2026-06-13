@@ -43,7 +43,7 @@ apis:
       - type: Documentation
         url: https://api-dashboard.search.brave.com/app/documentation/web-search/get-started
       - type: OpenAPI
-        url: https://api-dashboard.search.brave.com/app/documentation/web-search/get-started
+        url: https://raw.githubusercontent.com/api-evangelist/brave/refs/heads/main/openapi/brave-search-api.yml
       - type: Pricing
         url: https://brave.com/search/api/
       - type: Dashboard

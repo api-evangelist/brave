@@ -1,0 +1,23 @@
+{
+  "type": "suggest",
+  "query": {
+    "original": "brave se"
+  },
+  "results": [
+    {
+      "query": "brave search"
+    },
+    {
+      "query": "brave search api"
+    },
+    {
+      "query": "brave search engine"
+    },
+    {
+      "query": "brave search vs google"
+    },
+    {
+      "query": "brave settings"
+    }
+  ]
+}

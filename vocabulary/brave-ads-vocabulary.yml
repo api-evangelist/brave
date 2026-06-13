@@ -1,0 +1,110 @@
+name: Brave Ads API Vocabulary
+description: >
+  Domain vocabulary for the Brave Ads API covering campaign management,
+  targeting, and performance reporting concepts.
+version: 1.0.0
+source: https://ads-help.brave.com/campaign-performance/API/
+
+terms:
+
+  - term: campaign
+    definition: >
+      The top-level advertising unit in Brave Ads. A campaign groups ad sets
+      and ads under a shared budget, schedule, and objectives. Campaigns can
+      target privacy-preserving native browser ads or search ads.
+    context: campaign management
+
+  - term: ad_set
+    definition: >
+      A grouping within a campaign that contains one or more ads sharing the
+      same targeting configuration. Ad sets define which audiences, countries,
+      and platforms the ads within them are delivered to.
+    context: campaign management
+
+  - term: ad
+    definition: >
+      An individual creative unit within an ad set. Ads contain the headline,
+      body copy, destination URL, and creative asset. Brave Ads are
+      privacy-preserving and served without behavioral tracking.
+    context: campaign management
+
+  - term: native_browser_ads
+    definition: >
+      Privacy-preserving advertisements delivered within the Brave browser
+      experience as notifications or new tab page placements. Native browser
+      ads are shown to opted-in Brave users without cross-site tracking.
+    context: ad delivery
+
+  - term: search_ads
+    definition: >
+      Sponsored results displayed within Brave Search. Search ads appear
+      based on keyword relevance without building a behavioral profile of
+      the user, maintaining Brave's privacy-first approach.
+    context: ad delivery
+
+  - term: impressions
+    definition: >
+      The number of times an ad creative was displayed to a user. A key
+      performance metric in campaign reporting representing reach and
+      visibility of an ad.
+    context: reporting metrics
+
+  - term: clicks
+    definition: >
+      The number of times users interacted with an ad by clicking on it.
+      Used together with impressions to calculate click-through rate (CTR).
+    context: reporting metrics
+
+  - term: spend
+    definition: >
+      The total amount of budget consumed by a campaign, ad set, or ad
+      during a reporting period. Expressed in the campaign's currency.
+    context: reporting metrics
+
+  - term: ctr
+    definition: >
+      Click-through rate. The ratio of clicks to impressions expressed as
+      a percentage. Calculated as (clicks / impressions) * 100. Measures
+      the effectiveness of an ad creative in driving user engagement.
+    context: reporting metrics
+
+  - term: cpc
+    definition: >
+      Cost per click. The average amount spent per ad click, calculated as
+      spend divided by clicks. A key efficiency metric for budget optimization.
+    context: reporting metrics
+
+  - term: conversion
+    definition: >
+      A desired user action completed after interacting with an ad, such as
+      a purchase, sign-up, or download. Brave Ads supports conversion tracking
+      in a privacy-preserving manner.
+    context: reporting metrics
+
+  - term: granularity
+    definition: >
+      The time unit used to aggregate performance data in campaign reports.
+      Options include daily, weekly, monthly, and total (aggregated across
+      the entire reporting period).
+    context: reporting
+
+  - term: dimensions
+    definition: >
+      Attributes used to segment campaign report data. Common dimensions
+      include campaign, ad_set, ad, country, platform, and channel.
+    context: reporting
+
+  - term: targeting
+    definition: >
+      Configuration settings on an ad set that determine which users and
+      contexts see the ads. Brave Ads targeting is based on non-personal
+      signals such as country, platform, and channel without behavioral
+      profiling.
+    context: campaign management
+
+  - term: X-Api-Key
+    definition: >
+      The HTTP request header used to authenticate calls to the Brave Ads API.
+      API keys are generated from the Brave Ads advertiser dashboard at
+      https://ads.brave.com.
+    context: authentication
