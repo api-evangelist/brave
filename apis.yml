@@ -1,0 +1,112 @@
+aid: brave
+name: Brave
+description: >
+  Brave is a privacy-first browser company offering developer APIs for anonymous
+  web search and privacy-preserving advertising. The Brave Search API provides
+  real-time search results from an independent index of over 30 billion pages,
+  designed for AI and LLM applications with schema-enriched results and citation-
+  grounded answer completions. The Brave Ads API enables advertisers to manage
+  campaigns and access performance reporting data for privacy-respecting native
+  browser and search ads.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/brave/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Search
+  - Advertising
+  - Privacy
+  - Browser
+  - AI
+  - LLM
+
+apis:
+
+  - aid: brave:brave-search-api
+    name: Brave Search API
+    description: >
+      Real-time web search results from Brave's independent index of over 30 billion
+      pages with 100 million daily updates. Provides web, image, video, news,
+      suggestions, and spellcheck endpoints with schema-enriched data optimized for
+      AI and LLM integrations. Includes custom reranking via Goggles and citation-
+      grounded Answers completions compatible with the OpenAI SDK.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://brave.com/search/api/
+    baseURL: https://api.search.brave.com/res/v1/
+    tags:
+      - Search
+      - Web Search
+      - AI
+      - LLM
+    properties:
+      - type: Documentation
+        url: https://api-dashboard.search.brave.com/app/documentation/web-search/get-started
+      - type: OpenAPI
+        url: https://api-dashboard.search.brave.com/app/documentation/web-search/get-started
+      - type: Pricing
+        url: https://brave.com/search/api/
+      - type: Dashboard
+        url: https://api-dashboard.search.brave.com
+      - type: GitHubRepository
+        url: https://github.com/brave/brave-search-mcp-server
+    contact:
+      - FN: Brave Software
+        url: https://brave.com
+        email: ''
+
+  - aid: brave:brave-ads-api
+    name: Brave Ads API
+    description: >
+      API for managing and reporting on Brave Ads campaigns. Enables advertisers
+      to retrieve campaign details and performance data for privacy-preserving
+      native browser ads and search ads. Supports customizable reporting dimensions
+      and metrics including impressions, clicks, spend, and conversion tracking.
+      Authentication uses API keys generated from the Brave Ads dashboard.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://ads-help.brave.com/campaign-performance/API/
+    baseURL: https://ads-serve.brave.com
+    tags:
+      - Advertising
+      - Campaigns
+      - Publisher
+      - Privacy
+    properties:
+      - type: Documentation
+        url: https://ads-help.brave.com/campaign-performance/API/
+      - type: Pricing
+        url: https://ads.brave.com
+      - type: Dashboard
+        url: https://ads.brave.com
+    contact:
+      - FN: Brave Ads
+        url: https://brave.com/brave-ads/
+        email: adsales@brave.com
+
+common:
+  - type: Website
+    url: https://brave.com
+  - type: Documentation
+    url: https://api-dashboard.search.brave.com/app/documentation/web-search/get-started
+  - type: GitHubOrg
+    url: https://github.com/brave
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/brave-software
+  - type: Blog
+    url: https://brave.com/blog/
+  - type: Pricing
+    url: https://brave.com/search/api/
+  - type: StatusPage
+    url: https://status.brave.app
+  - type: X
+    url: https://x.com/brave
+  - type: Plans
+    url: plans/brave-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/brave-rate-limits.yml
+  - type: FinOps
+    url: finops/brave-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

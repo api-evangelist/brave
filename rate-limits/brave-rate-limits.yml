@@ -1,0 +1,31 @@
+name: Brave API Rate Limits
+description: Rate limits for the Brave Search API and Brave Ads API
+url: https://api-dashboard.search.brave.com/app/documentation/web-search/get-started
+rate_limits:
+
+  - api: Brave Search API - Search Plan
+    base_url: https://api.search.brave.com/res/v1/
+    requests_per_second: 50
+    notes: >
+      Applies to the Search plan. Pagination is limited to offset max 9 (10 pages)
+      with up to 20 results per page. Check more_results_available field in response
+      before iterating with offset.
+
+  - api: Brave Search API - Answers Plan
+    base_url: https://api.search.brave.com/res/v1/chat/completions
+    requests_per_second: 2
+    notes: >
+      Lower throughput plan for AI answer completions. Streaming is supported.
+      Compatible with OpenAI SDK patterns.
+
+  - api: Brave Ads API - Campaigns
+    base_url: https://ads-serve.brave.com/v1/api/
+    notes: >
+      No documented rate limits. API key required via X-Brave-Api-Key header.
+      Reporting data available at hourly granularity for periods up to 31 days.
+
+  - api: Brave Ads API - Reporting
+    base_url: https://ads-serve.brave.com/v3/report/
+    notes: >
+      Campaign performance reports returned as CSV. Supports v1 and v2 endpoints
+      for backwards compatibility. No documented rate limits.

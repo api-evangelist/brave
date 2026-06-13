@@ -1,0 +1,56 @@
+name: Brave API FinOps
+description: Financial operations guidance for managing Brave Search API and Brave Ads API costs
+url: https://brave.com/search/api/
+
+cost_model:
+  type: pay_as_you_go
+  billing_currency: USD
+  free_credits:
+    amount: 5.00
+    period: monthly
+    notes: >
+      All plans include $5 in monthly free credits. New users receive metered billing
+      with $5 monthly credit (~1,000 Search queries or equivalent). Legacy free tier
+      (2,000 queries/month) preserved for existing subscribers.
+
+pricing_summary:
+  - service: Brave Search API - Web Search
+    cost_per_unit: 0.005
+    unit: per request
+    unit_bulk: per 1,000 requests
+    cost_bulk: 5.00
+    capacity_qps: 50
+
+  - service: Brave Search API - Answers
+    cost_per_unit: 0.004
+    unit: per request
+    unit_bulk: per 1,000 requests
+    cost_bulk: 4.00
+    token_cost_per_million: 5.00
+    capacity_qps: 2
+
+  - service: Brave Search API - Spellcheck / Autosuggest
+    cost_per_unit: 0.0005
+    unit: per request
+    unit_bulk: per 10,000 requests
+    cost_bulk: 5.00
+
+  - service: Brave Ads API
+    cost_per_unit: custom
+    notes: >
+      Brave Ads billing is based on campaign spend. Managed and self-directed
+      campaigns are billed via credit card through Stripe. Payment is due within
+      30 days of invoice receipt.
+
+cost_optimization:
+  - tip: Use the $5 monthly free credits for prototyping and low-volume use cases
+  - tip: Use the Search plan (50 QPS) for high-throughput retrieval workloads
+  - tip: Use the Answers plan only when grounded AI completions are required; it has lower QPS
+  - tip: Check more_results_available in responses to avoid unnecessary paginated requests
+  - tip: Use freshness and country filters to narrow results and reduce irrelevant queries
+  - tip: Enterprise plan provides zero data retention and invoicing for large-scale deployments
+
+payment_methods:
+  - Credit card via Stripe (Search API dashboard)
+  - Invoicing (Enterprise plan)
+  - Credit card via Stripe (Brave Ads campaigns)
