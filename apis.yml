@@ -8,7 +8,7 @@ description: >
   grounded answer completions. The Brave Ads API enables advertisers to manage
   campaigns and access performance reporting data for privacy-respecting native
   browser and search ads.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/brave/refs/heads/main/apis.yml
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -31,7 +31,7 @@ apis:
       suggestions, and spellcheck endpoints with schema-enriched data optimized for
       AI and LLM integrations. Includes custom reranking via Goggles and citation-
       grounded Answers completions compatible with the OpenAI SDK.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://brave.com/search/api/
     baseURL: https://api.search.brave.com/res/v1/
     tags:
@@ -63,7 +63,7 @@ apis:
       native browser ads and search ads. Supports customizable reporting dimensions
       and metrics including impressions, clicks, spend, and conversion tracking.
       Authentication uses API keys generated from the Brave Ads dashboard.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://ads-help.brave.com/campaign-performance/API/
     baseURL: https://ads-serve.brave.com
     tags:
