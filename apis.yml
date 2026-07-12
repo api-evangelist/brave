@@ -84,6 +84,12 @@ apis:
         email: adsales@brave.com
 
 common:
+  - type: VulnerabilityDisclosure
+    url: security/brave-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/brave-domain-security.yml
+  - type: Authentication
+    url: authentication/brave-authentication.yml
   - type: Website
     url: https://brave.com
   - type: Documentation

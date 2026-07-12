@@ -1,0 +1,23 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/brave-ads-api.yml, openapi/brave-search-api.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-Api-Key
+  description: API key generated from the Brave Ads dashboard at https://ads.brave.com.
+  sources:
+  - openapi/brave-ads-api.yml
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: X-Subscription-Token
+  description: API key obtained from the Brave Search API dashboard at https://api-dashboard.search.brave.com
+  sources:
+  - openapi/brave-search-api.yml
