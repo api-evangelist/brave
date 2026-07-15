@@ -84,6 +84,8 @@ apis:
         email: adsales@brave.com
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/brave-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/brave-vulnerability-disclosure.yml
   - type: DomainSecurity
