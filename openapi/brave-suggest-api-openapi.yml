@@ -1,0 +1,171 @@
+openapi: 3.0.3
+info:
+  title: Brave Ads campaigns suggest API
+  description: 'API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.
+
+    '
+  version: 3.0.0
+  contact:
+    name: Brave Ads
+    url: https://brave.com/brave-ads/
+    email: adsales@brave.com
+  termsOfService: https://brave.com/terms-of-use/
+servers:
+- url: https://ads-serve.brave.com
+  description: Brave Ads API
+security:
+- ApiKeyAuth: []
+tags:
+- name: suggest
+  description: Autosuggest endpoints
+paths:
+  /suggest/search:
+    get:
+      operationId: suggest
+      summary: Autosuggest
+      description: 'Retrieve query autocompletion suggestions as users type. Supports enhanced rich mode returning entity metadata including titles, descriptions, and images.
+
+        '
+      tags:
+      - suggest
+      parameters:
+      - name: q
+        in: query
+        required: true
+        description: Partial query string for which to return suggestions.
+        schema:
+          type: string
+          example: brave se
+      - name: country
+        in: query
+        required: false
+        description: Country code to customize suggestions by locale.
+        schema:
+          type: string
+          example: US
+      - name: count
+        in: query
+        required: false
+        description: Number of suggestions to return.
+        schema:
+          type: integer
+          minimum: 1
+          example: 5
+      - name: rich
+        in: query
+        required: false
+        description: 'When true, returns enhanced suggestion metadata including titles, descriptions, and images for entity results.
+
+          '
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful autosuggest response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuggestResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    QueryInfo:
+      type: object
+      description: Information about the search query.
+      properties:
+        original:
+          type: string
+          description: The original search query as submitted.
+        more_results_available:
+          type: boolean
+          description: Indicates whether additional result pages are available.
+    SuggestionResult:
+      type: object
+      description: A single search suggestion.
+      properties:
+        query:
+          type: string
+          description: Suggested query string.
+        is_entity:
+          type: boolean
+          description: True when the suggestion refers to a known entity (rich mode only).
+        title:
+          type: string
+          description: Display title for entity suggestions (rich mode only).
+        description:
+          type: string
+          description: Short description of the entity (rich mode only).
+        img:
+          type: string
+          format: uri
+          description: Image URL for the entity (rich mode only).
+    SuggestResponse:
+      type: object
+      description: Response from the autosuggest endpoint.
+      properties:
+        type:
+          type: string
+          example: suggest
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SuggestionResult'
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code.
+            message:
+              type: string
+              description: Human-readable error message.
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests — rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — missing or invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden — API key does not have access to this endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: 'API key generated from the Brave Ads dashboard at https://ads.brave.com.
+
+        '
+externalDocs:
+  description: Brave Ads API Documentation
+  url: https://ads-help.brave.com/campaign-performance/API/

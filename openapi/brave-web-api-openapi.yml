@@ -1,0 +1,325 @@
+openapi: 3.0.3
+info:
+  title: Brave Ads campaigns web API
+  description: 'API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.
+
+    '
+  version: 3.0.0
+  contact:
+    name: Brave Ads
+    url: https://brave.com/brave-ads/
+    email: adsales@brave.com
+  termsOfService: https://brave.com/terms-of-use/
+servers:
+- url: https://ads-serve.brave.com
+  description: Brave Ads API
+security:
+- ApiKeyAuth: []
+tags:
+- name: web
+  description: Web search endpoints
+paths:
+  /web/search:
+    get:
+      operationId: webSearch
+      summary: Web Search
+      description: 'Search across billions of indexed web pages with fast, reliable results. Supports search operators, geographic targeting, language filtering, date freshness, safe search controls, and rich data enrichments across 20+ verticals.
+
+        '
+      tags:
+      - web
+      parameters:
+      - name: q
+        in: query
+        required: true
+        description: 'Search query string. Supports search operators including exact phrase matching (quotes), term exclusion (minus), site-specific search (site:), and file type filtering (filetype:).
+
+          '
+        schema:
+          type: string
+          example: brave search api
+      - name: country
+        in: query
+        required: false
+        description: 2-character country code for geographic targeting (e.g. US, GB, DE).
+        schema:
+          type: string
+          minLength: 2
+          maxLength: 2
+          example: US
+      - name: search_lang
+        in: query
+        required: false
+        description: ISO 639-1 language code for content language preference (e.g. en, es, fr).
+        schema:
+          type: string
+          example: en
+      - name: ui_lang
+        in: query
+        required: false
+        description: Language code for response metadata and UI strings.
+        schema:
+          type: string
+          example: en-US
+      - name: count
+        in: query
+        required: false
+        description: Number of results per page. Maximum is 20.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 20
+          default: 20
+      - name: offset
+        in: query
+        required: false
+        description: Pagination offset (0-based). Maximum is 9.
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 9
+          default: 0
+      - name: safesearch
+        in: query
+        required: false
+        description: 'Safe search content filtering level. Options: off, moderate (default), or strict.
+
+          '
+        schema:
+          type: string
+          enum:
+          - false
+          - moderate
+          - strict
+          default: moderate
+      - name: freshness
+        in: query
+        required: false
+        description: 'Date-based freshness filter. Use pd (past 24 hours), pw (past week), pm (past month), py (past year), or a custom date range in the format YYYY-MM-DDtoYYYY-MM-DD.
+
+          '
+        schema:
+          type: string
+          example: pw
+      - name: extra_snippets
+        in: query
+        required: false
+        description: When true, returns up to 5 additional text excerpts per result.
+        schema:
+          type: boolean
+          default: false
+      - name: enable_rich_callback
+        in: query
+        required: false
+        description: 'Enable rich data enrichments. Set to 1 to enable rich result callbacks for verticals like weather, stocks, sports, and more.
+
+          '
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+          default: 0
+      responses:
+        '200':
+          description: Successful web search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebSearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /web/rich:
+    get:
+      operationId: webRich
+      summary: Rich Result Data
+      description: 'Retrieve rich result data for a specific vertical using a callback key obtained from a web search response. Supports weather, stocks, sports scores, currency, cryptocurrency, and more.
+
+        '
+      tags:
+      - web
+      parameters:
+      - name: callback_key
+        in: query
+        required: true
+        description: 'Callback key from the rich field of a web search response.
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful rich result response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RichResultResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    QueryInfo:
+      type: object
+      description: Information about the search query.
+      properties:
+        original:
+          type: string
+          description: The original search query as submitted.
+        more_results_available:
+          type: boolean
+          description: Indicates whether additional result pages are available.
+    WebSearchResponse:
+      type: object
+      description: Response from the web search endpoint.
+      properties:
+        type:
+          type: string
+          example: search
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        web:
+          type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/WebResult'
+        locations:
+          type: object
+          properties:
+            results:
+              type: array
+              items:
+                $ref: '#/components/schemas/LocationResult'
+        rich:
+          $ref: '#/components/schemas/RichHint'
+    LocationResult:
+      type: object
+      description: A local place of interest from a web search result.
+      properties:
+        id:
+          type: string
+          description: Location identifier for use with local POI and description endpoints.
+        title:
+          type: string
+          description: Name of the location.
+    WebResult:
+      type: object
+      description: A single web search result.
+      properties:
+        title:
+          type: string
+          description: Title of the web page.
+        url:
+          type: string
+          format: uri
+          description: URL of the web page.
+        description:
+          type: string
+          description: Text snippet describing the web page content.
+        extra_snippets:
+          type: array
+          description: Up to 5 additional text excerpts (when extra_snippets is enabled).
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code.
+            message:
+              type: string
+              description: Human-readable error message.
+    RichResultResponse:
+      type: object
+      description: 'Rich result data for a specific vertical. The structure varies by vertical type.
+
+        '
+      properties:
+        type:
+          type: string
+          description: Rich result type identifier.
+          example: rich
+        vertical:
+          type: string
+          description: 'Vertical category such as weather, stock, currency, sports, calculator, definitions, or package_tracker.
+
+            '
+        data:
+          type: object
+          description: 'Vertical-specific data. Schema varies by vertical type.
+
+            '
+          additionalProperties: true
+    RichHint:
+      type: object
+      description: Rich result hint object returned with web search responses.
+      properties:
+        type:
+          type: string
+          description: Type identifier for the rich result.
+        hint:
+          type: object
+          properties:
+            vertical:
+              type: string
+              description: 'Vertical category such as weather, stock, currency, sports, calculator, definitions, or package_tracker.
+
+                '
+              example: weather
+            callback_key:
+              type: string
+              description: Key to use with the /web/rich endpoint to fetch full rich data.
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests — rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — missing or invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden — API key does not have access to this endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: 'API key generated from the Brave Ads dashboard at https://ads.brave.com.
+
+        '
+externalDocs:
+  description: Brave Ads API Documentation
+  url: https://ads-help.brave.com/campaign-performance/API/

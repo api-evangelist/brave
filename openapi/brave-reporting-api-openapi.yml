@@ -1,0 +1,166 @@
+openapi: 3.0.3
+info:
+  title: Brave Ads campaigns reporting API
+  description: 'API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.
+
+    '
+  version: 3.0.0
+  contact:
+    name: Brave Ads
+    url: https://brave.com/brave-ads/
+    email: adsales@brave.com
+  termsOfService: https://brave.com/terms-of-use/
+servers:
+- url: https://ads-serve.brave.com
+  description: Brave Ads API
+security:
+- ApiKeyAuth: []
+tags:
+- name: reporting
+  description: Campaign performance reporting endpoints
+paths:
+  /v3/report/campaign/csv/{campaignId}:
+    get:
+      operationId: getCampaignReport
+      summary: Get Campaign Performance Report
+      description: 'Retrieve customizable performance report data for a specific campaign in CSV format. Supports filtering by date range, granularity, and selection of dimensions and metrics including impressions, clicks, spend, and conversions.
+
+        '
+      tags:
+      - reporting
+      parameters:
+      - name: campaignId
+        in: path
+        required: true
+        description: The unique identifier of the campaign to report on.
+        schema:
+          type: string
+          example: camp_abc123
+      - name: startDate
+        in: query
+        required: false
+        description: Report start date in YYYY-MM-DD format.
+        schema:
+          type: string
+          format: date
+          example: '2026-01-01'
+      - name: endDate
+        in: query
+        required: false
+        description: Report end date in YYYY-MM-DD format.
+        schema:
+          type: string
+          format: date
+          example: '2026-01-31'
+      - name: granularity
+        in: query
+        required: false
+        description: Time granularity for report rows.
+        schema:
+          type: string
+          enum:
+          - daily
+          - weekly
+          - monthly
+          - total
+          default: daily
+      - name: dimensions
+        in: query
+        required: false
+        description: 'Comma-separated list of dimensions to include in the report. Options include campaign, ad_set, ad, country, platform, channel.
+
+          '
+        schema:
+          type: string
+          example: campaign,country
+      - name: metrics
+        in: query
+        required: false
+        description: 'Comma-separated list of metrics to include. Options include impressions, clicks, spend, ctr, cpc, conversions, conversion_value.
+
+          '
+        schema:
+          type: string
+          example: impressions,clicks,spend,ctr
+      responses:
+        '200':
+          description: Successful campaign report response in CSV format
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: CSV-formatted campaign performance data.
+              example: 'date,campaign_id,campaign_name,impressions,clicks,spend,ctr
+
+                2026-01-01,camp_abc123,Q4 Brand Awareness,10523,312,15.60,2.96%
+
+                2026-01-02,camp_abc123,Q4 Brand Awareness,11045,298,14.90,2.70%
+
+                '
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests — rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — missing or invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Not Found — the requested campaign does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden — API key does not have access to this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code.
+            message:
+              type: string
+              description: Human-readable error message.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: 'API key generated from the Brave Ads dashboard at https://ads.brave.com.
+
+        '
+externalDocs:
+  description: Brave Ads API Documentation
+  url: https://ads-help.brave.com/campaign-performance/API/

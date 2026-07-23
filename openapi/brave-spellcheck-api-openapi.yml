@@ -1,0 +1,141 @@
+openapi: 3.0.3
+info:
+  title: Brave Ads campaigns spellcheck API
+  description: 'API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.
+
+    '
+  version: 3.0.0
+  contact:
+    name: Brave Ads
+    url: https://brave.com/brave-ads/
+    email: adsales@brave.com
+  termsOfService: https://brave.com/terms-of-use/
+servers:
+- url: https://ads-serve.brave.com
+  description: Brave Ads API
+security:
+- ApiKeyAuth: []
+tags:
+- name: spellcheck
+  description: Spellcheck endpoints
+paths:
+  /spellcheck/search:
+    get:
+      operationId: spellcheck
+      summary: Spellcheck
+      description: 'Analyze a query for spelling errors and return suggested corrections. An empty results array indicates no corrections are needed.
+
+        '
+      tags:
+      - spellcheck
+      parameters:
+      - name: q
+        in: query
+        required: true
+        description: The search query to check for spelling errors.
+        schema:
+          type: string
+          example: machien leraning
+      - name: country
+        in: query
+        required: false
+        description: Country code for locale-specific spelling corrections.
+        schema:
+          type: string
+          example: US
+      responses:
+        '200':
+          description: Successful spellcheck response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpellcheckResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    QueryInfo:
+      type: object
+      description: Information about the search query.
+      properties:
+        original:
+          type: string
+          description: The original search query as submitted.
+        more_results_available:
+          type: boolean
+          description: Indicates whether additional result pages are available.
+    SpellcheckResponse:
+      type: object
+      description: Response from the spellcheck endpoint.
+      properties:
+        type:
+          type: string
+          example: spellcheck
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        results:
+          type: array
+          description: 'Array of spelling correction suggestions. Empty array means no corrections needed.
+
+            '
+          items:
+            type: object
+            properties:
+              query:
+                type: string
+                description: Corrected query string.
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code.
+            message:
+              type: string
+              description: Human-readable error message.
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests — rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — missing or invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden — API key does not have access to this endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: 'API key generated from the Brave Ads dashboard at https://ads.brave.com.
+
+        '
+externalDocs:
+  description: Brave Ads API Documentation
+  url: https://ads-help.brave.com/campaign-performance/API/

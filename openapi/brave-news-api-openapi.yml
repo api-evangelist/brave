@@ -1,0 +1,207 @@
+openapi: 3.0.3
+info:
+  title: Brave Ads campaigns news API
+  description: 'API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.
+
+    '
+  version: 3.0.0
+  contact:
+    name: Brave Ads
+    url: https://brave.com/brave-ads/
+    email: adsales@brave.com
+  termsOfService: https://brave.com/terms-of-use/
+servers:
+- url: https://ads-serve.brave.com
+  description: Brave Ads API
+security:
+- ApiKeyAuth: []
+tags:
+- name: news
+  description: News search endpoints
+paths:
+  /news/search:
+    get:
+      operationId: newsSearch
+      summary: News Search
+      description: Search for news articles from the Brave independent index.
+      tags:
+      - news
+      parameters:
+      - name: q
+        in: query
+        required: true
+        description: News search query string.
+        schema:
+          type: string
+          example: artificial intelligence
+      - name: country
+        in: query
+        required: false
+        description: 2-character country code for geographic targeting.
+        schema:
+          type: string
+          example: US
+      - name: search_lang
+        in: query
+        required: false
+        description: ISO 639-1 language code for content language.
+        schema:
+          type: string
+          example: en
+      - name: count
+        in: query
+        required: false
+        description: Number of results per page. Max 50, default 20.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+      - name: offset
+        in: query
+        required: false
+        description: Pagination offset (0-based). Maximum is 9.
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 9
+          default: 0
+      - name: safesearch
+        in: query
+        required: false
+        description: Content filtering level.
+        schema:
+          type: string
+          enum:
+          - false
+          - moderate
+          - strict
+          default: moderate
+      - name: freshness
+        in: query
+        required: false
+        description: Date freshness filter (pd, pw, pm, py, or custom range).
+        schema:
+          type: string
+          example: pd
+      - name: extra_snippets
+        in: query
+        required: false
+        description: When true, returns up to 5 additional text excerpts per article.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful news search response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsSearchResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    QueryInfo:
+      type: object
+      description: Information about the search query.
+      properties:
+        original:
+          type: string
+          description: The original search query as submitted.
+        more_results_available:
+          type: boolean
+          description: Indicates whether additional result pages are available.
+    NewsSearchResponse:
+      type: object
+      description: Response from the news search endpoint.
+      properties:
+        type:
+          type: string
+          example: news
+        query:
+          $ref: '#/components/schemas/QueryInfo'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsResult'
+    NewsResult:
+      type: object
+      description: A single news search result.
+      properties:
+        title:
+          type: string
+          description: Headline of the news article.
+        url:
+          type: string
+          format: uri
+          description: URL to the news article.
+        description:
+          type: string
+          description: Summary snippet of the article.
+        extra_snippets:
+          type: array
+          description: Up to 5 additional excerpts (when extra_snippets is enabled).
+          items:
+            type: string
+        age:
+          type: string
+          description: Relative publication age (e.g. 2 hours ago).
+        source:
+          type: string
+          description: Name of the news publisher.
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code.
+            message:
+              type: string
+              description: Human-readable error message.
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests — rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — missing or invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden — API key does not have access to this endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: 'API key generated from the Brave Ads dashboard at https://ads.brave.com.
+
+        '
+externalDocs:
+  description: Brave Ads API Documentation
+  url: https://ads-help.brave.com/campaign-performance/API/

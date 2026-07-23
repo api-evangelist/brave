@@ -1,0 +1,248 @@
+openapi: 3.0.3
+info:
+  title: Brave Ads campaigns local API
+  description: 'API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.
+
+    '
+  version: 3.0.0
+  contact:
+    name: Brave Ads
+    url: https://brave.com/brave-ads/
+    email: adsales@brave.com
+  termsOfService: https://brave.com/terms-of-use/
+servers:
+- url: https://ads-serve.brave.com
+  description: Brave Ads API
+security:
+- ApiKeyAuth: []
+tags:
+- name: local
+  description: Local place of interest endpoints
+paths:
+  /local/pois:
+    get:
+      operationId: localPois
+      summary: Local Places of Interest
+      description: 'Retrieve detailed place-of-interest information for location IDs obtained from a web search response. Location IDs expire approximately 8 hours after the originating search.
+
+        '
+      tags:
+      - local
+      parameters:
+      - name: ids
+        in: query
+        required: true
+        description: Comma-separated list of location IDs from web search (max 20).
+        schema:
+          type: array
+          items:
+            type: string
+          maxItems: 20
+        explode: false
+        style: form
+      - name: search_lang
+        in: query
+        required: false
+        description: ISO 639-1 language preference for results.
+        schema:
+          type: string
+          example: en
+      - name: ui_lang
+        in: query
+        required: false
+        description: UI language for response metadata.
+        schema:
+          type: string
+          example: en-US
+      - name: units
+        in: query
+        required: false
+        description: Measurement units for distance and related fields.
+        schema:
+          type: string
+          enum:
+          - metric
+          - imperial
+          default: metric
+      responses:
+        '200':
+          description: Successful local POI response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalPoisResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /local/descriptions:
+    get:
+      operationId: localDescriptions
+      summary: Local Descriptions
+      description: 'Fetch AI-generated descriptions for locations identified by IDs from a web search response.
+
+        '
+      tags:
+      - local
+      parameters:
+      - name: ids
+        in: query
+        required: true
+        description: Comma-separated list of location IDs from web search (max 20).
+        schema:
+          type: array
+          items:
+            type: string
+          maxItems: 20
+        explode: false
+        style: form
+      responses:
+        '200':
+          description: Successful local descriptions response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocalDescriptionsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized — missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests — rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Bad request — missing or invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden — API key does not have access to this endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code.
+            message:
+              type: string
+              description: Human-readable error message.
+    LocalDescriptionsResponse:
+      type: object
+      description: Response from the local descriptions endpoint.
+      properties:
+        type:
+          type: string
+          example: local_descriptions
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Location identifier.
+              description:
+                type: string
+                description: AI-generated description of the location.
+    LocalPoisResponse:
+      type: object
+      description: Response from the local POIs endpoint.
+      properties:
+        type:
+          type: string
+          example: local_pois
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PoiDetail'
+    PoiDetail:
+      type: object
+      description: Detailed information about a place of interest.
+      properties:
+        id:
+          type: string
+          description: Location identifier.
+        name:
+          type: string
+          description: Name of the location.
+        address:
+          type: object
+          properties:
+            street_address:
+              type: string
+            locality:
+              type: string
+            region:
+              type: string
+            country_code:
+              type: string
+        coordinates:
+          type: object
+          properties:
+            latitude:
+              type: number
+              format: double
+            longitude:
+              type: number
+              format: double
+        phone:
+          type: string
+          description: Contact phone number.
+        website:
+          type: string
+          format: uri
+          description: Website URL of the location.
+        rating:
+          type: object
+          properties:
+            value:
+              type: number
+              description: Average rating value.
+            count:
+              type: integer
+              description: Number of ratings.
+        categories:
+          type: array
+          items:
+            type: string
+          description: Business category labels.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: 'API key generated from the Brave Ads dashboard at https://ads.brave.com.
+
+        '
+externalDocs:
+  description: Brave Ads API Documentation
+  url: https://ads-help.brave.com/campaign-performance/API/
