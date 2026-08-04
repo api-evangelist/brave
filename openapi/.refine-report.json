@@ -1,0 +1,30 @@
+{
+  "provider": "brave",
+  "sources": [
+    "brave-campaigns-api-openapi.yml",
+    "brave-images-api-openapi.yml",
+    "brave-local-api-openapi.yml",
+    "brave-news-api-openapi.yml",
+    "brave-reporting-api-openapi.yml",
+    "brave-spellcheck-api-openapi.yml",
+    "brave-suggest-api-openapi.yml",
+    "brave-videos-api-openapi.yml",
+    "brave-web-api-openapi.yml"
+  ],
+  "outputs": [
+    "brave-campaigns-api-openapi.yml",
+    "brave-images-api-openapi.yml",
+    "brave-local-api-openapi.yml",
+    "brave-news-api-openapi.yml",
+    "brave-reporting-api-openapi.yml",
+    "brave-spellcheck-api-openapi.yml",
+    "brave-suggest-api-openapi.yml",
+    "brave-videos-api-openapi.yml",
+    "brave-web-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

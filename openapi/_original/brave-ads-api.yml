@@ -1,0 +1,345 @@
+openapi: 3.0.3
+info:
+  title: Brave Ads API
+  description: >
+    API for managing and reporting on Brave Ads campaigns. Enables advertisers
+    to retrieve campaign details and performance data for privacy-preserving
+    native browser ads and search ads. Supports customizable reporting dimensions
+    and metrics including impressions, clicks, spend, and conversion tracking.
+    Authentication uses API keys generated from the Brave Ads dashboard.
+  version: 3.0.0
+  contact:
+    name: Brave Ads
+    url: https://brave.com/brave-ads/
+    email: adsales@brave.com
+  termsOfService: https://brave.com/terms-of-use/
+externalDocs:
+  description: Brave Ads API Documentation
+  url: https://ads-help.brave.com/campaign-performance/API/
+servers:
+  - url: https://ads-serve.brave.com
+    description: Brave Ads API
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: campaigns
+    description: Campaign management and hierarchy endpoints
+  - name: reporting
+    description: Campaign performance reporting endpoints
+
+paths:
+  /v1/api/campaigns:
+    get:
+      operationId: listCampaigns
+      summary: List Campaigns
+      description: >
+        Retrieve campaign hierarchies with associated ad sets and ads for the
+        authenticated advertiser account. Returns a structured view of campaigns,
+        their ad sets, and individual ads with configuration details.
+      tags:
+        - campaigns
+      responses:
+        '200':
+          description: Successful campaigns list response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignsResponse'
+              example:
+                campaigns:
+                  - id: "camp_abc123"
+                    name: "Q4 Brand Awareness"
+                    status: active
+                    budget:
+                      daily: 50.00
+                      total: 1500.00
+                      currency: USD
+                    start_date: "2026-10-01"
+                    end_date: "2026-12-31"
+                    ad_sets:
+                      - id: "adset_xyz789"
+                        name: "Desktop Users"
+                        status: active
+                        targeting:
+                          countries: ["US", "CA", "GB"]
+                          platforms: ["desktop"]
+                        ads:
+                          - id: "ad_def456"
+                            name: "Hero Banner Ad"
+                            status: active
+                            creative_url: "https://example.com/ad-creative.png"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+  /v3/report/campaign/csv/{campaignId}:
+    get:
+      operationId: getCampaignReport
+      summary: Get Campaign Performance Report
+      description: >
+        Retrieve customizable performance report data for a specific campaign
+        in CSV format. Supports filtering by date range, granularity, and
+        selection of dimensions and metrics including impressions, clicks,
+        spend, and conversions.
+      tags:
+        - reporting
+      parameters:
+        - name: campaignId
+          in: path
+          required: true
+          description: The unique identifier of the campaign to report on.
+          schema:
+            type: string
+            example: camp_abc123
+        - name: startDate
+          in: query
+          required: false
+          description: Report start date in YYYY-MM-DD format.
+          schema:
+            type: string
+            format: date
+            example: "2026-01-01"
+        - name: endDate
+          in: query
+          required: false
+          description: Report end date in YYYY-MM-DD format.
+          schema:
+            type: string
+            format: date
+            example: "2026-01-31"
+        - name: granularity
+          in: query
+          required: false
+          description: Time granularity for report rows.
+          schema:
+            type: string
+            enum: [daily, weekly, monthly, total]
+            default: daily
+        - name: dimensions
+          in: query
+          required: false
+          description: >
+            Comma-separated list of dimensions to include in the report.
+            Options include campaign, ad_set, ad, country, platform, channel.
+          schema:
+            type: string
+            example: campaign,country
+        - name: metrics
+          in: query
+          required: false
+          description: >
+            Comma-separated list of metrics to include. Options include
+            impressions, clicks, spend, ctr, cpc, conversions, conversion_value.
+          schema:
+            type: string
+            example: impressions,clicks,spend,ctr
+      responses:
+        '200':
+          description: Successful campaign report response in CSV format
+          content:
+            text/csv:
+              schema:
+                type: string
+                description: CSV-formatted campaign performance data.
+              example: |
+                date,campaign_id,campaign_name,impressions,clicks,spend,ctr
+                2026-01-01,camp_abc123,Q4 Brand Awareness,10523,312,15.60,2.96%
+                2026-01-02,camp_abc123,Q4 Brand Awareness,11045,298,14.90,2.70%
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: >
+        API key generated from the Brave Ads dashboard at https://ads.brave.com.
+
+  schemas:
+    CampaignsResponse:
+      type: object
+      description: Response containing the list of campaigns with their hierarchies.
+      properties:
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/Campaign'
+
+    Campaign:
+      type: object
+      description: A Brave Ads campaign with associated ad sets and ads.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the campaign.
+        name:
+          type: string
+          description: Display name of the campaign.
+        status:
+          type: string
+          description: Current status of the campaign.
+          enum: [active, paused, completed, draft]
+        budget:
+          $ref: '#/components/schemas/Budget'
+        start_date:
+          type: string
+          format: date
+          description: Campaign start date.
+        end_date:
+          type: string
+          format: date
+          description: Campaign end date.
+        ad_sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdSet'
+
+    Budget:
+      type: object
+      description: Campaign budget configuration.
+      properties:
+        daily:
+          type: number
+          format: float
+          description: Daily budget amount.
+        total:
+          type: number
+          format: float
+          description: Total campaign budget.
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          example: USD
+
+    AdSet:
+      type: object
+      description: An ad set within a campaign containing targeting configuration.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the ad set.
+        name:
+          type: string
+          description: Display name of the ad set.
+        status:
+          type: string
+          enum: [active, paused, draft]
+          description: Current status of the ad set.
+        targeting:
+          $ref: '#/components/schemas/Targeting'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ad'
+
+    Targeting:
+      type: object
+      description: Targeting configuration for an ad set.
+      properties:
+        countries:
+          type: array
+          items:
+            type: string
+          description: List of 2-character country codes to target.
+        platforms:
+          type: array
+          items:
+            type: string
+            enum: [desktop, mobile, tablet]
+          description: Device platform targets.
+        channels:
+          type: array
+          items:
+            type: string
+            enum: [search, native]
+          description: Ad channel types.
+
+    Ad:
+      type: object
+      description: An individual ad creative within an ad set.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the ad.
+        name:
+          type: string
+          description: Display name of the ad.
+        status:
+          type: string
+          enum: [active, paused, draft, rejected]
+          description: Current status of the ad.
+        creative_url:
+          type: string
+          format: uri
+          description: URL to the ad creative asset.
+        headline:
+          type: string
+          description: Ad headline text.
+        body:
+          type: string
+          description: Ad body copy.
+        destination_url:
+          type: string
+          format: uri
+          description: Destination URL for ad clicks.
+
+    ErrorResponse:
+      type: object
+      description: API error response.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              description: Error code.
+            message:
+              type: string
+              description: Human-readable error message.
+
+  responses:
+    BadRequest:
+      description: Bad request — missing or invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized — missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: Forbidden — API key does not have access to this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Not Found — the requested campaign does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests — rate limit exceeded.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
