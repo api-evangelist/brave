@@ -224,6 +224,13 @@ apis:
   - type: GitHubRepository
     url: https://github.com/brave/brave-search-mcp-server
 common:
+  - type: IssueTracker
+    url: https://github.com/brave/brave-search-mcp-server/issues
+  - type: Releases
+    url: https://github.com/brave/brave-search-mcp-server/releases
+  - type: License
+    name: MIT
+    url: https://github.com/brave/brave-search-mcp-server/blob/main/LICENSE
   - type: AgenticAccess
     url: agentic-access/brave-agentic-access.yml
   - type: VulnerabilityDisclosure
