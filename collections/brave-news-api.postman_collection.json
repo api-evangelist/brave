@@ -1,0 +1,519 @@
+{
+  "item": [
+    {
+      "id": "d1e13786-38be-4fee-8322-c93f3383895d",
+      "name": "news",
+      "description": {
+        "content": "News search endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7766bcd4-db09-494d-9ecb-bfa57729a14c",
+          "name": "News Search",
+          "request": {
+            "name": "News Search",
+            "description": {
+              "content": "Search for news articles from the Brave independent index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "news",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) News search query string."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "2-character country code for geographic targeting."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_lang",
+                  "value": "<string>",
+                  "description": "ISO 639-1 language code for content language."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "20",
+                  "description": "Number of results per page. Max 50, default 20."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Pagination offset (0-based). Maximum is 9."
+                },
+                {
+                  "disabled": false,
+                  "key": "safesearch",
+                  "value": "moderate",
+                  "description": "Content filtering level."
+                },
+                {
+                  "disabled": false,
+                  "key": "freshness",
+                  "value": "<string>",
+                  "description": "Date freshness filter (pd, pw, pm, py, or custom range)."
+                },
+                {
+                  "disabled": false,
+                  "key": "extra_snippets",
+                  "value": "false",
+                  "description": "When true, returns up to 5 additional text excerpts per article."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c2d14ed2-65e8-4cdc-87e7-e08bc902b734",
+              "name": "Successful news search response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "artificial intelligence"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pd"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"news\",\n  \"query\": {\n    \"original\": \"string\",\n    \"more_results_available\": false\n  },\n  \"results\": [\n    {\n      \"title\": \"string\",\n      \"url\": \"https://ze.xcwfnVtbxLUJW6\",\n      \"description\": \"string\",\n      \"extra_snippets\": [\n        \"string\",\n        \"string\"\n      ],\n      \"age\": \"string\",\n      \"source\": \"string\"\n    },\n    {\n      \"title\": \"string\",\n      \"url\": \"https://VJYhiTRtNKZAngeWfEjdqRxTXjFI.xmiavtgkYO3zZUxSwNRfdyt.t8MQbk5hB8p4qbQRvcPSaOPyYJ9GqDlv9Umo1z.J+TdV-iP\",\n      \"description\": \"string\",\n      \"extra_snippets\": [\n        \"string\",\n        \"string\"\n      ],\n      \"age\": \"string\",\n      \"source\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ab97559-611a-4b22-a279-1fea1c28c697",
+              "name": "Bad request — missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "artificial intelligence"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pd"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dea1206e-790f-46a5-b15c-469f791fb9fe",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "artificial intelligence"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pd"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6c271e0-9bcf-42b6-8c54-8d58f18929f1",
+              "name": "Forbidden — API key does not have access to this endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "artificial intelligence"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pd"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96a23a22-3685-4305-a63d-d53bacfed205",
+              "name": "Too Many Requests — rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "news",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "artificial intelligence"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pd"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ads-serve.brave.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "384e6bcb-084f-432d-9b28-e28c6af2e440",
+    "name": "Brave Ads campaigns news API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.\n\n\nContact Support:\n Name: Brave Ads\n Email: adsales@brave.com",
+      "type": "text/plain"
+    }
+  }
+}

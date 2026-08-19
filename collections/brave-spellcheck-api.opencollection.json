@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brave Ads campaigns spellcheck API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "spellcheck",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Spellcheck",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ads-serve.brave.com/spellcheck/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "The search query to check for spelling errors."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code for locale-specific spelling corrections."
+              }
+            ]
+          },
+          "docs": "Analyze a query for spelling errors and return suggested corrections. An empty results array indicates no corrections are needed.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

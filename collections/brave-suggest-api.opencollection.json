@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brave Ads campaigns suggest API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "suggest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Autosuggest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ads-serve.brave.com/suggest/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Partial query string for which to return suggestions."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "Country code to customize suggestions by locale."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of suggestions to return."
+              },
+              {
+                "name": "rich",
+                "value": "",
+                "type": "query",
+                "description": "When true, returns enhanced suggestion metadata including titles, descriptions, and images for entity results.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve query autocompletion suggestions as users type. Supports enhanced rich mode returning entity metadata including titles, descriptions, and images.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

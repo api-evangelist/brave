@@ -1,0 +1,859 @@
+{
+  "item": [
+    {
+      "id": "63b496d6-cc09-45f7-a406-88b68eb41b83",
+      "name": "web",
+      "description": {
+        "content": "Web search endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "adff59ff-80b2-4853-b66b-7ff4ab3f319d",
+          "name": "Web Search",
+          "request": {
+            "name": "Web Search",
+            "description": {
+              "content": "Search across billions of indexed web pages with fast, reliable results. Supports search operators, geographic targeting, language filtering, date freshness, safe search controls, and rich data enrichments across 20+ verticals.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "web",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Search query string. Supports search operators including exact phrase matching (quotes), term exclusion (minus), site-specific search (site:), and file type filtering (filetype:).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "2-character country code for geographic targeting (e.g. US, GB, DE)."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_lang",
+                  "value": "<string>",
+                  "description": "ISO 639-1 language code for content language preference (e.g. en, es, fr)."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui_lang",
+                  "value": "<string>",
+                  "description": "Language code for response metadata and UI strings."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "20",
+                  "description": "Number of results per page. Maximum is 20."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Pagination offset (0-based). Maximum is 9."
+                },
+                {
+                  "disabled": false,
+                  "key": "safesearch",
+                  "value": "moderate",
+                  "description": "Safe search content filtering level. Options: off, moderate (default), or strict.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "freshness",
+                  "value": "<string>",
+                  "description": "Date-based freshness filter. Use pd (past 24 hours), pw (past week), pm (past month), py (past year), or a custom date range in the format YYYY-MM-DDtoYYYY-MM-DD.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "extra_snippets",
+                  "value": "false",
+                  "description": "When true, returns up to 5 additional text excerpts per result."
+                },
+                {
+                  "disabled": false,
+                  "key": "enable_rich_callback",
+                  "value": "0",
+                  "description": "Enable rich data enrichments. Set to 1 to enable rich result callbacks for verticals like weather, stocks, sports, and more.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6959b58a-18a6-421b-b6f9-ba72bc72d8ac",
+              "name": "Successful web search response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "brave search api"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "ui_lang",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_rich_callback",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"search\",\n  \"query\": {\n    \"original\": \"string\",\n    \"more_results_available\": false\n  },\n  \"web\": {\n    \"results\": [\n      {\n        \"title\": \"string\",\n        \"url\": \"http://LVuGtmhCdovoWIfhJwNRvOCdOcn.ukq7h3Udri+i.2whn4P6BeuRmgzwua1qQMHcDE6sGfv\",\n        \"description\": \"string\",\n        \"extra_snippets\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"title\": \"string\",\n        \"url\": \"https://euBpzqqLreEdeQrFnzhQcKMGNGGGnNVV.opokcPqUD3hdL7bPqc\",\n        \"description\": \"string\",\n        \"extra_snippets\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ]\n  },\n  \"locations\": {\n    \"results\": [\n      {\n        \"id\": \"string\",\n        \"title\": \"string\"\n      },\n      {\n        \"id\": \"string\",\n        \"title\": \"string\"\n      }\n    ]\n  },\n  \"rich\": {\n    \"type\": \"string\",\n    \"hint\": {\n      \"vertical\": \"weather\",\n      \"callback_key\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3531623-cbae-4811-b9c7-4f262edba7bb",
+              "name": "Bad request — missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "brave search api"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "ui_lang",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_rich_callback",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78518470-b43a-422e-913c-fc3f1bae5b9c",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "brave search api"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "ui_lang",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_rich_callback",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "822210c0-7f10-48cf-bffb-79980d17e7b4",
+              "name": "Forbidden — API key does not have access to this endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "brave search api"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "ui_lang",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_rich_callback",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f10e8c6-4c4c-4762-b9c9-e448f8893b20",
+              "name": "Too Many Requests — rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "brave search api"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "ui_lang",
+                      "value": "en-US"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "extra_snippets",
+                      "value": "false"
+                    },
+                    {
+                      "key": "enable_rich_callback",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa6a5a65-0e5c-4d6b-a578-e52b8eecbcf6",
+          "name": "Rich Result Data",
+          "request": {
+            "name": "Rich Result Data",
+            "description": {
+              "content": "Retrieve rich result data for a specific vertical using a callback key obtained from a web search response. Supports weather, stocks, sports scores, currency, cryptocurrency, and more.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "web",
+                "rich"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "callback_key",
+                  "value": "<string>",
+                  "description": "(Required) Callback key from the rich field of a web search response.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "38131d6e-af06-4cfe-84ac-348ab2ac479d",
+              "name": "Successful rich result response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "rich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "callback_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"rich\",\n  \"vertical\": \"string\",\n  \"data\": {\n    \"key_0\": 7771,\n    \"key_1\": 8220.040054268055\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8620af46-e05c-40c2-9068-58bcc74dc501",
+              "name": "Bad request — missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "rich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "callback_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33ff8f97-a291-4edc-9aed-a8a98462820f",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "rich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "callback_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42357c33-ef5b-48f7-8769-5a78e52bb891",
+              "name": "Forbidden — API key does not have access to this endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "rich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "callback_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da4c0dee-25eb-4865-909d-5d2ed24d7973",
+              "name": "Too Many Requests — rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "web",
+                    "rich"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "callback_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ads-serve.brave.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6f8d443a-4348-4c1e-8dfd-01cdaa8c97e6",
+    "name": "Brave Ads campaigns web API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.\n\n\nContact Support:\n Name: Brave Ads\n Email: adsales@brave.com",
+      "type": "text/plain"
+    }
+  }
+}

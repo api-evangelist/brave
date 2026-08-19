@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brave Ads campaigns reporting API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Campaign Performance Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ads-serve.brave.com/v3/report/campaign/csv/:campaignId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the campaign to report on."
+              },
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Report start date in YYYY-MM-DD format."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "Report end date in YYYY-MM-DD format."
+              },
+              {
+                "name": "granularity",
+                "value": "",
+                "type": "query",
+                "description": "Time granularity for report rows."
+              },
+              {
+                "name": "dimensions",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of dimensions to include in the report. Options include campaign, ad_set, ad, country, platform, channel.\n"
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of metrics to include. Options include impressions, clicks, spend, ctr, cpc, conversions, conversion_value.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve customizable performance report data for a specific campaign in CSV format. Supports filtering by date range, granularity, and selection of dimensions and metrics including impressions, clicks, spend, and conversions.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

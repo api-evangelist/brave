@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brave Ads campaigns API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ads-serve.brave.com/v1/api/campaigns"
+          },
+          "docs": "Retrieve campaign hierarchies with associated ad sets and ads for the authenticated advertiser account. Returns a structured view of campaigns, their ad sets, and individual ads with configuration details.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brave Ads campaigns local API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "local",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Local Places of Interest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ads-serve.brave.com/local/pois",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of location IDs from web search (max 20)."
+              },
+              {
+                "name": "search_lang",
+                "value": "",
+                "type": "query",
+                "description": "ISO 639-1 language preference for results."
+              },
+              {
+                "name": "ui_lang",
+                "value": "",
+                "type": "query",
+                "description": "UI language for response metadata."
+              },
+              {
+                "name": "units",
+                "value": "",
+                "type": "query",
+                "description": "Measurement units for distance and related fields."
+              }
+            ]
+          },
+          "docs": "Retrieve detailed place-of-interest information for location IDs obtained from a web search response. Location IDs expire approximately 8 hours after the originating search.\n"
+        },
+        {
+          "info": {
+            "name": "Local Descriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ads-serve.brave.com/local/descriptions",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of location IDs from web search (max 20)."
+              }
+            ]
+          },
+          "docs": "Fetch AI-generated descriptions for locations identified by IDs from a web search response.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

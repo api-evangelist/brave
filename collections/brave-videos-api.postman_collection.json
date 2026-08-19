@@ -1,0 +1,519 @@
+{
+  "item": [
+    {
+      "id": "93ade31f-55b2-4365-bcd3-2142f7f49292",
+      "name": "videos",
+      "description": {
+        "content": "Video search endpoints",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9a45b202-9d0b-4d5d-a9a6-347d29e448c7",
+          "name": "Video Search",
+          "request": {
+            "name": "Video Search",
+            "description": {
+              "content": "Search for videos from the Brave independent index.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "videos",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) Video search query string."
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "2-character country code for geographic targeting."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_lang",
+                  "value": "<string>",
+                  "description": "ISO 639-1 language code for content language."
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "20",
+                  "description": "Number of results per page. Max 50, default 20."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Pagination offset (0-based). Maximum is 9."
+                },
+                {
+                  "disabled": false,
+                  "key": "safesearch",
+                  "value": "moderate",
+                  "description": "Content filtering level."
+                },
+                {
+                  "disabled": false,
+                  "key": "freshness",
+                  "value": "<string>",
+                  "description": "Date freshness filter (pd, pw, pm, py, or custom range)."
+                },
+                {
+                  "disabled": false,
+                  "key": "spellcheck",
+                  "value": "true",
+                  "description": "Enable autocorrection. Default true."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d96c594f-addb-45bc-b1bd-4e86b6a2ffe6",
+              "name": "Successful video search response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "machine learning tutorial"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "spellcheck",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"videos\",\n  \"query\": {\n    \"original\": \"string\",\n    \"more_results_available\": true\n  },\n  \"results\": [\n    {\n      \"title\": \"string\",\n      \"url\": \"https://z.orpkmpsPxAFo+gnjFVqk8gg1gdhB6jvV0\",\n      \"description\": \"string\",\n      \"thumbnail\": {\n        \"url\": \"https://XyGDt.dmH7QFcv0Egl6wiWuXTNhIVHiCUItPN9b7+yCdxYxJ7\"\n      },\n      \"duration\": \"string\",\n      \"publisher\": \"string\"\n    },\n    {\n      \"title\": \"string\",\n      \"url\": \"http://GfHkpqvTfC.driPlNb-\",\n      \"description\": \"string\",\n      \"thumbnail\": {\n        \"url\": \"http://ItABEJkHkMty.xarPxqsiThZwyR1acdKRju,UGSOje2fCySW4tmQfWDGs9grrPDUQeqy\"\n      },\n      \"duration\": \"string\",\n      \"publisher\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9517b93e-ce4c-479c-bad9-823628bba037",
+              "name": "Bad request — missing or invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "machine learning tutorial"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "spellcheck",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80a5cf92-5abd-4a5c-a7d4-30c816a11dee",
+              "name": "Unauthorized — missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "machine learning tutorial"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "spellcheck",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d422832-4fa3-43e9-8bed-cb93f564393b",
+              "name": "Forbidden — API key does not have access to this endpoint.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "machine learning tutorial"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "spellcheck",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d1b693c-4b24-46ee-8f1e-de53d624cf34",
+              "name": "Too Many Requests — rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "machine learning tutorial"
+                    },
+                    {
+                      "key": "country",
+                      "value": "US"
+                    },
+                    {
+                      "key": "search_lang",
+                      "value": "en"
+                    },
+                    {
+                      "key": "count",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "safesearch",
+                      "value": "moderate"
+                    },
+                    {
+                      "key": "freshness",
+                      "value": "pw"
+                    },
+                    {
+                      "key": "spellcheck",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ads-serve.brave.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "86a4ad41-581a-438c-9a30-2ca8a86614bd",
+    "name": "Brave Ads campaigns videos API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.\n\n\nContact Support:\n Name: Brave Ads\n Email: adsales@brave.com",
+      "type": "text/plain"
+    }
+  }
+}

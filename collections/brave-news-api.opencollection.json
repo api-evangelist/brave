@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brave Ads campaigns news API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "news",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "News Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ads-serve.brave.com/news/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "News search query string."
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "2-character country code for geographic targeting."
+              },
+              {
+                "name": "search_lang",
+                "value": "",
+                "type": "query",
+                "description": "ISO 639-1 language code for content language."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Max 50, default 20."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (0-based). Maximum is 9."
+              },
+              {
+                "name": "safesearch",
+                "value": "",
+                "type": "query",
+                "description": "Content filtering level."
+              },
+              {
+                "name": "freshness",
+                "value": "",
+                "type": "query",
+                "description": "Date freshness filter (pd, pw, pm, py, or custom range)."
+              },
+              {
+                "name": "extra_snippets",
+                "value": "",
+                "type": "query",
+                "description": "When true, returns up to 5 additional text excerpts per article."
+              }
+            ]
+          },
+          "docs": "Search for news articles from the Brave independent index."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

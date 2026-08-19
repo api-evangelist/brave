@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Brave Ads campaigns web API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "web",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Web Search",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ads-serve.brave.com/web/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query string. Supports search operators including exact phrase matching (quotes), term exclusion (minus), site-specific search (site:), and file type filtering (filetype:).\n"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "2-character country code for geographic targeting (e.g. US, GB, DE)."
+              },
+              {
+                "name": "search_lang",
+                "value": "",
+                "type": "query",
+                "description": "ISO 639-1 language code for content language preference (e.g. en, es, fr)."
+              },
+              {
+                "name": "ui_lang",
+                "value": "",
+                "type": "query",
+                "description": "Language code for response metadata and UI strings."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Maximum is 20."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset (0-based). Maximum is 9."
+              },
+              {
+                "name": "safesearch",
+                "value": "",
+                "type": "query",
+                "description": "Safe search content filtering level. Options: off, moderate (default), or strict.\n"
+              },
+              {
+                "name": "freshness",
+                "value": "",
+                "type": "query",
+                "description": "Date-based freshness filter. Use pd (past 24 hours), pw (past week), pm (past month), py (past year), or a custom date range in the format YYYY-MM-DDtoYYYY-MM-DD.\n"
+              },
+              {
+                "name": "extra_snippets",
+                "value": "",
+                "type": "query",
+                "description": "When true, returns up to 5 additional text excerpts per result."
+              },
+              {
+                "name": "enable_rich_callback",
+                "value": "",
+                "type": "query",
+                "description": "Enable rich data enrichments. Set to 1 to enable rich result callbacks for verticals like weather, stocks, sports, and more.\n"
+              }
+            ]
+          },
+          "docs": "Search across billions of indexed web pages with fast, reliable results. Supports search operators, geographic targeting, language filtering, date freshness, safe search controls, and rich data enrichments across 20+ verticals.\n"
+        },
+        {
+          "info": {
+            "name": "Rich Result Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ads-serve.brave.com/web/rich",
+            "params": [
+              {
+                "name": "callback_key",
+                "value": "",
+                "type": "query",
+                "description": "Callback key from the rich field of a web search response.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve rich result data for a specific vertical using a callback key obtained from a web search response. Supports weather, stocks, sports scores, currency, cryptocurrency, and more.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
