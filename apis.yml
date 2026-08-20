@@ -31,6 +31,13 @@ tags:
   - Advertising
   - Privacy
   - Browser
+  - Artificial Intelligence
+  - LLM
+tags_raw:
+  - Search
+  - Advertising
+  - Privacy
+  - Browser
   - AI
   - LLM
 
@@ -46,6 +53,11 @@ apis:
   humanURL: https://ads-help.brave.com/campaign-performance/API/
   baseURL: https://ads-serve.brave.com
   tags:
+  - Advertising
+  - Campaigns
+  - Publishers
+  - Privacy
+  tags_raw:
   - Advertising
   - Campaigns
   - Publisher
@@ -67,6 +79,8 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
+  - Campaigns
+  tags_raw:
   - campaigns
   properties:
   - type: OpenAPI
@@ -85,6 +99,8 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
+  - Image
+  tags_raw:
   - images
   properties:
   - type: OpenAPI
@@ -103,6 +119,8 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
+  - Local
+  tags_raw:
   - local
   properties:
   - type: OpenAPI
@@ -121,6 +139,8 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
+  - News
+  tags_raw:
   - news
   properties:
   - type: OpenAPI
@@ -139,6 +159,8 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
+  - Reporting
+  tags_raw:
   - reporting
   properties:
   - type: OpenAPI
@@ -157,6 +179,8 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
+  - Spell Check
+  tags_raw:
   - spellcheck
   properties:
   - type: OpenAPI
@@ -175,6 +199,8 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
+  - Suggest
+  tags_raw:
   - suggest
   properties:
   - type: OpenAPI
@@ -193,6 +219,8 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
+  - Videos
+  tags_raw:
   - videos
   properties:
   - type: OpenAPI
@@ -211,6 +239,8 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
+  - Web
+  tags_raw:
   - web
   properties:
   - type: OpenAPI
