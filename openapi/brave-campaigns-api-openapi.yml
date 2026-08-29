@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Brave Ads campaigns API
+  title: Brave Ads Campaigns API
   description: 'API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.
 
     '
@@ -70,72 +70,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   schemas:
-    Targeting:
-      type: object
-      description: Targeting configuration for an ad set.
-      properties:
-        countries:
-          type: array
-          items:
-            type: string
-          description: List of 2-character country codes to target.
-        platforms:
-          type: array
-          items:
-            type: string
-            enum:
-            - desktop
-            - mobile
-            - tablet
-          description: Device platform targets.
-        channels:
-          type: array
-          items:
-            type: string
-            enum:
-            - search
-            - native
-          description: Ad channel types.
-    Ad:
-      type: object
-      description: An individual ad creative within an ad set.
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the ad.
-        name:
-          type: string
-          description: Display name of the ad.
-        status:
-          type: string
-          enum:
-          - active
-          - paused
-          - draft
-          - rejected
-          description: Current status of the ad.
-        creative_url:
-          type: string
-          format: uri
-          description: URL to the ad creative asset.
-        headline:
-          type: string
-          description: Ad headline text.
-        body:
-          type: string
-          description: Ad body copy.
-        destination_url:
-          type: string
-          format: uri
-          description: Destination URL for ad clicks.
-    CampaignsResponse:
-      type: object
-      description: Response containing the list of campaigns with their hierarchies.
-      properties:
-        campaigns:
-          type: array
-          items:
-            $ref: '#/components/schemas/Campaign'
     ErrorResponse:
       type: object
       description: API error response.
@@ -149,29 +83,6 @@ components:
             message:
               type: string
               description: Human-readable error message.
-    AdSet:
-      type: object
-      description: An ad set within a campaign containing targeting configuration.
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the ad set.
-        name:
-          type: string
-          description: Display name of the ad set.
-        status:
-          type: string
-          enum:
-          - active
-          - paused
-          - draft
-          description: Current status of the ad set.
-        targeting:
-          $ref: '#/components/schemas/Targeting'
-        ads:
-          type: array
-          items:
-            $ref: '#/components/schemas/Ad'
     Campaign:
       type: object
       description: A Brave Ads campaign with associated ad sets and ads.
@@ -220,7 +131,102 @@ components:
           type: string
           description: ISO 4217 currency code.
           example: USD
+    Ad:
+      type: object
+      description: An individual ad creative within an ad set.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the ad.
+        name:
+          type: string
+          description: Display name of the ad.
+        status:
+          type: string
+          enum:
+          - active
+          - paused
+          - draft
+          - rejected
+          description: Current status of the ad.
+        creative_url:
+          type: string
+          format: uri
+          description: URL to the ad creative asset.
+        headline:
+          type: string
+          description: Ad headline text.
+        body:
+          type: string
+          description: Ad body copy.
+        destination_url:
+          type: string
+          format: uri
+          description: Destination URL for ad clicks.
+    AdSet:
+      type: object
+      description: An ad set within a campaign containing targeting configuration.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the ad set.
+        name:
+          type: string
+          description: Display name of the ad set.
+        status:
+          type: string
+          enum:
+          - active
+          - paused
+          - draft
+          description: Current status of the ad set.
+        targeting:
+          $ref: '#/components/schemas/Targeting'
+        ads:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ad'
+    CampaignsResponse:
+      type: object
+      description: Response containing the list of campaigns with their hierarchies.
+      properties:
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/Campaign'
+    Targeting:
+      type: object
+      description: Targeting configuration for an ad set.
+      properties:
+        countries:
+          type: array
+          items:
+            type: string
+          description: List of 2-character country codes to target.
+        platforms:
+          type: array
+          items:
+            type: string
+            enum:
+            - desktop
+            - mobile
+            - tablet
+          description: Device platform targets.
+        channels:
+          type: array
+          items:
+            type: string
+            enum:
+            - search
+            - native
+          description: Ad channel types.
   responses:
+    Forbidden:
+      description: Forbidden — API key does not have access to this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized — missing or invalid API key.
       content:
@@ -229,12 +235,6 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     TooManyRequests:
       description: Too Many Requests — rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Forbidden:
-      description: Forbidden — API key does not have access to this resource.
       content:
         application/json:
           schema:

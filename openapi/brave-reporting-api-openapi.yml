@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Brave Ads campaigns reporting API
+  title: Brave Ads Reporting API
   description: 'API for managing and reporting on Brave Ads campaigns. Enables advertisers to retrieve campaign details and performance data for privacy-preserving native browser ads and search ads. Supports customizable reporting dimensions and metrics including impressions, clicks, spend, and conversion tracking. Authentication uses API keys generated from the Brave Ads dashboard.
 
     '
@@ -109,18 +109,6 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   responses:
-    Unauthorized:
-      description: Unauthorized — missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    TooManyRequests:
-      description: Too Many Requests — rate limit exceeded.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: Bad request — missing or invalid parameters.
       content:
@@ -135,6 +123,18 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Forbidden:
       description: Forbidden — API key does not have access to this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized — missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    TooManyRequests:
+      description: Too Many Requests — rate limit exceeded.
       content:
         application/json:
           schema:

@@ -1,22 +1,15 @@
 {
   "provider": "brave",
   "sources": [
-    "brave-campaigns-api-openapi.yml",
-    "brave-images-api-openapi.yml",
-    "brave-local-api-openapi.yml",
-    "brave-news-api-openapi.yml",
-    "brave-reporting-api-openapi.yml",
-    "brave-spellcheck-api-openapi.yml",
-    "brave-suggest-api-openapi.yml",
-    "brave-videos-api-openapi.yml",
-    "brave-web-api-openapi.yml"
+    "_original/brave-ads-api.yml",
+    "_original/brave-search-api.yml"
   ],
   "outputs": [
     "brave-campaigns-api-openapi.yml",
+    "brave-reporting-api-openapi.yml",
     "brave-images-api-openapi.yml",
     "brave-local-api-openapi.yml",
     "brave-news-api-openapi.yml",
-    "brave-reporting-api-openapi.yml",
     "brave-spellcheck-api-openapi.yml",
     "brave-suggest-api-openapi.yml",
     "brave-videos-api-openapi.yml",
@@ -25,6 +18,20 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "brave-ads-api.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "brave-search-api.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "brave-campaigns-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "brave-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "brave-local-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "brave-news-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "brave-reporting-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "brave-spellcheck-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "brave-suggest-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "brave-videos-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "brave-web-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
