@@ -133,7 +133,7 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
-  - Local
+  - local
   tags_raw:
   - local
   properties:
@@ -193,7 +193,7 @@ apis:
   humanURL: https://brave.com/search/api/
   baseURL: https://api.search.brave.com/res/v1/
   tags:
-  - Spell Check
+  - spellcheck
   tags_raw:
   - spellcheck
   properties:
